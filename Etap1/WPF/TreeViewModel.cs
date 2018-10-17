@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using Library.MVVM;
 using Microsoft.Win32;
-using Wpf.ViewModel;
 
-namespace Wpf.TreeView
+namespace Library.TreeView
 {
     public class TreeViewModel : INotifyPropertyChanged
     {
