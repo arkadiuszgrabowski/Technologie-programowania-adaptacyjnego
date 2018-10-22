@@ -46,6 +46,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TreeView\DelegateCommand.cs" />
     <Compile Include="TreeView\TreeViewItem.cs" />
+    <Compile Include="TreeView\TreeViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Reflection\" />
