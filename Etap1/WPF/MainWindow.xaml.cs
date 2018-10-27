@@ -11,7 +11,10 @@ namespace WPF
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new TreeViewModel();
+            DataContext = new TreeViewModel()
+            {
+                GetPath = new OpenDialogPath()
+            };
         }
     }
 }

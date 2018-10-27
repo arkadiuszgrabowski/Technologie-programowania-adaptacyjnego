@@ -41,15 +41,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IOpenDialogPath.cs" />
     <Compile Include="MVVM\RelayCommand.cs" />
     <Compile Include="MVVM\ViewModelBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reflection\AssemblyMetadata.cs" />
+    <Compile Include="Reflection\NamespaceMetadata.cs" />
+    <Compile Include="Reflection\TypeMetadata.cs" />
     <Compile Include="TreeView\DelegateCommand.cs" />
+    <Compile Include="TreeView\ReflectionTreeItems\AssemblyTI.cs" />
+    <Compile Include="TreeView\ReflectionTreeItems\ITreeView.cs" />
+    <Compile Include="TreeView\ReflectionTreeItems\NamespaceTI.cs" />
+    <Compile Include="TreeView\ReflectionTreeItems\TypeTI.cs" />
     <Compile Include="TreeView\TreeViewItem.cs" />
     <Compile Include="TreeView\TreeViewModel.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Reflection\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
