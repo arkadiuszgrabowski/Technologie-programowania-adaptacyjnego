@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Library.Reflection;
+using Library.Singleton;
 
 namespace Library.TreeView.ReflectionTreeItems
 {
@@ -24,12 +25,12 @@ namespace Library.TreeView.ReflectionTreeItems
             {
                 foreach (TypeMetadata typeMetadata in TypeList)
                 {
-                    ItemTypeEnum typeEnum = typeMetadata.m_Type == TypeEnum.Class ?
-                        ItemTypeEnum.Class : typeMetadata.m_Type == TypeEnum.Enum ?
-                            ItemTypeEnum.Enum : typeMetadata.m_Type == TypeEnum.Interface ?
+                    ItemTypeEnum typeEnum = typeMetadata.Type == TypeEnum.Class ?
+                        ItemTypeEnum.Class : typeMetadata.Type == TypeEnum.Enum ?
+                            ItemTypeEnum.Enum : typeMetadata.Type == TypeEnum.Interface ?
                                 ItemTypeEnum.Interface : ItemTypeEnum.Struct;
 
-                    children.Add(new TypeTI(TypeMetadata.TypeDictionary[typeMetadata.m_typeName], typeEnum));
+                    children.Add(new TypeTI(TypeSingleton.Instance.Get(typeMetadata.TypeName), typeEnum));
                 }
             }
         }

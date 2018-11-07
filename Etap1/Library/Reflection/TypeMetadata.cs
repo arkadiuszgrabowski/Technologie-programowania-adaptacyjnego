@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Library.Singleton;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -9,53 +10,51 @@ namespace Library.Reflection
 {
     public class TypeMetadata
     {
-        public static Dictionary<string, TypeMetadata> TypeDictionary = new Dictionary<string, TypeMetadata>();
-
-        public string m_typeName { get; set; }
-        public string m_NamespaceName { get; set; }
-        public TypeMetadata m_BaseType { get; set; }
-        public List<TypeMetadata> m_GenericArguments { get; set; }
-        public Tuple<AccessLevel, SealedEnum, AbstractEnum, StaticEnum> m_Modifiers { get; set; }
-        public TypeEnum m_Type { get; set; }
-        public List<TypeMetadata> m_ImplementedInterfaces { get; set; }
-        public List<TypeMetadata> m_NestedTypes { get; set; }
-        public List<PropertyMetadata> m_Properties { get; set; }
-        public TypeMetadata m_DeclaringType { get; set; }
-        public List<MethodMetadata> m_Methods { get; set; }
-        public List<MethodMetadata> m_Constructors { get; set; }
+        public string TypeName { get; set; }
+        public string NamespaceName { get; set; }
+        public TypeMetadata BaseType { get; set; }
+        public List<TypeMetadata> GenericArguments { get; set; }
+        public Tuple<AccessLevel, SealedEnum, AbstractEnum, StaticEnum> Modifiers { get; set; }
+        public TypeEnum Type { get; set; }
+        public List<TypeMetadata> ImplementedInterfaces { get; set; }
+        public List<TypeMetadata> NestedTypes { get; set; }
+        public List<PropertyMetadata> Properties { get; set; }
+        public TypeMetadata DeclaringType { get; set; }
+        public List<MethodMetadata> Methods { get; set; }
+        public List<MethodMetadata> Constructors { get; set; }
         public List<ParameterMetadata> Fields { get; set; }
 
         public TypeMetadata(Type type)
         {
-            m_typeName = type.Name;
-            if (!TypeDictionary.ContainsKey(m_typeName))
+            TypeName = type.Name;
+            if (!TypeSingleton.Instance.ContainsKey(TypeName))
             {
-                TypeDictionary.Add(m_typeName, this);
+                TypeSingleton.Instance.Add(TypeName, this);
             }
 
-            m_Type = GetTypeEnum(type);
-            m_BaseType = EmitExtends(type.BaseType);
-            m_Modifiers = EmitModifiers(type);
+            Type = GetTypeEnum(type);
+            BaseType = EmitExtends(type.BaseType);
+            Modifiers = EmitModifiers(type);
 
-            m_DeclaringType = EmitDeclaringType(type.DeclaringType);
-            m_Constructors = MethodMetadata.EmitConstructors(type);
-            m_Methods = MethodMetadata.EmitMethods(type);
-            m_NestedTypes = EmitNestedTypes(type);
-            m_ImplementedInterfaces = EmitImplements(type.GetInterfaces()).ToList();
-            m_GenericArguments = !type.IsGenericTypeDefinition ? null : EmitGenericArguments(type);
-            m_Properties = PropertyMetadata.EmitProperties(type);
+            DeclaringType = EmitDeclaringType(type.DeclaringType);
+            Constructors = MethodMetadata.EmitConstructors(type);
+            Methods = MethodMetadata.EmitMethods(type);
+            NestedTypes = EmitNestedTypes(type);
+            ImplementedInterfaces = EmitImplements(type.GetInterfaces()).ToList();
+            GenericArguments = !type.IsGenericTypeDefinition ? null : EmitGenericArguments(type);
+            Properties = PropertyMetadata.EmitProperties(type);
             Fields = EmitFields(type);
         }
 
         private TypeMetadata(string typeName, string namespaceName)
         {
-            this.m_typeName = typeName;
-            this.m_NamespaceName = namespaceName;
+            this.TypeName = typeName;
+            this.NamespaceName = namespaceName;
         }
 
         private TypeMetadata(string typeName, string namespaceName, IEnumerable<TypeMetadata> genericArguments) : this(typeName, namespaceName)
         {
-            this.m_GenericArguments = genericArguments.ToList();
+            this.GenericArguments = genericArguments.ToList();
         }
 
 
@@ -79,7 +78,7 @@ namespace Library.Reflection
 
         public static void StoreType(Type type)
         {
-            if (!TypeDictionary.ContainsKey(type.Name))
+            if (!TypeSingleton.Instance.ContainsKey(type.Name))
             {
                 new TypeMetadata(type);
             }

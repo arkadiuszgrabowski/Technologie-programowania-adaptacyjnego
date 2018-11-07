@@ -53,6 +53,7 @@
     <Compile Include="Reflection\ParameterMetadata.cs" />
     <Compile Include="Reflection\PropertyMetadata.cs" />
     <Compile Include="Reflection\TypeMetadata.cs" />
+    <Compile Include="Singleton\TypeSingleton.cs" />
     <Compile Include="Tracing\FileLogger.cs" />
     <Compile Include="Tracing\ILogger.cs" />
     <Compile Include="Tracing\LevelEnum.cs" />

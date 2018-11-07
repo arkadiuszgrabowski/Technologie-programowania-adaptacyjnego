@@ -1,4 +1,5 @@
 ﻿using Library.Reflection;
+using Library.Singleton;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -31,7 +32,7 @@ namespace Library.TreeView.ReflectionTreeItems
             {
                 foreach (TypeMetadata genericArgument in MethodMetadata.GenericArguments)
                 {
-                    children.Add(new TypeTI(TypeMetadata.TypeDictionary[genericArgument.m_typeName], ItemTypeEnum.GenericArgument));
+                    children.Add(new TypeTI(TypeSingleton.Instance.Get(genericArgument.TypeName), ItemTypeEnum.GenericArgument));
                 }
             }
             if (MethodMetadata.Parameters != null)
@@ -43,7 +44,7 @@ namespace Library.TreeView.ReflectionTreeItems
             }
             if (MethodMetadata.ReturnType != null)
             {
-                children.Add(new TypeTI(TypeMetadata.TypeDictionary[MethodMetadata.ReturnType.m_typeName], ItemTypeEnum.ReturnType));
+                children.Add(new TypeTI(TypeSingleton.Instance.Get(MethodMetadata.ReturnType.TypeName), ItemTypeEnum.ReturnType));
             }
         }
     }

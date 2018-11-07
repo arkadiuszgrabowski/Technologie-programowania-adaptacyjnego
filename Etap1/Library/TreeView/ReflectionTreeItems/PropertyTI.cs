@@ -1,4 +1,5 @@
 ﻿using Library.Reflection;
+using Library.Singleton;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -19,7 +20,7 @@ namespace Library.TreeView.ReflectionTreeItems
         {
             if (PropertyMetadata.Type != null)
             {
-                children.Add(new TypeTI(TypeMetadata.TypeDictionary[PropertyMetadata.Type.m_typeName], ItemTypeEnum.Type));
+                children.Add(new TypeTI(TypeSingleton.Instance.Get(PropertyMetadata.Type.TypeName), ItemTypeEnum.Type));
             }
         }
     }
