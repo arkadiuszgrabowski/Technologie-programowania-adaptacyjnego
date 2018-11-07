@@ -22,9 +22,11 @@ namespace Library.TreeView.ReflectionTreeItems
 
         public void BuiltMyself(ObservableCollection<TreeViewItem> children)
         {
+            TypeTI tmp;
             foreach (TypeMetadata types in TypeList)
             {
-                children.Add(new TreeViewItem(new TypeTI(types), types.m_typeName));
+                tmp = new TypeTI(types);
+                children.Add(new TreeViewItem(tmp, tmp.Name));
             }
         }
     }

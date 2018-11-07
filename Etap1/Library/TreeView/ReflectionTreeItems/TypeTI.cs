@@ -14,7 +14,22 @@ namespace Library.TreeView.ReflectionTreeItems
 
         public TypeTI(TypeMetadata typeMetadata)
         {
-            Name = typeMetadata.m_typeName;
+            Name = GetModifiers(typeMetadata) + typeMetadata.m_typeName;
+        }
+
+        public static string GetModifiers(TypeMetadata model)
+        {
+            if (model.m_Modifiers != null)
+            {
+                string type = null;
+                type += model.m_Modifiers.Item1.ToString().ToLower() + " ";
+                type += model.m_Modifiers.Item2 == SealedEnum.Sealed ? SealedEnum.Sealed.ToString().ToLower() + " " : String.Empty;
+                type += model.m_Modifiers.Item3 == AbstractEnum.Abstract ? AbstractEnum.Abstract.ToString().ToLower() + " " : String.Empty;
+                type += model.m_Modifiers.Item4 == StaticEnum.Static ? StaticEnum.Static.ToString().ToLower() + " " : String.Empty;
+                return type;
+            }
+
+            return null;
         }
 
         public void BuiltMyself(ObservableCollection<TreeViewItem> children)

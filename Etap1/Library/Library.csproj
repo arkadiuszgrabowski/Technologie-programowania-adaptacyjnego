@@ -55,6 +55,7 @@
     <Compile Include="Reflection\TypeMetadata.cs" />
     <Compile Include="TreeView\DelegateCommand.cs" />
     <Compile Include="TreeView\ReflectionTreeItems\AssemblyTI.cs" />
+    <Compile Include="TreeView\ReflectionTreeItems\ItemTypeEnum.cs" />
     <Compile Include="TreeView\ReflectionTreeItems\ITreeView.cs" />
     <Compile Include="TreeView\ReflectionTreeItems\NamespaceTI.cs" />
     <Compile Include="TreeView\ReflectionTreeItems\TypeTI.cs" />
