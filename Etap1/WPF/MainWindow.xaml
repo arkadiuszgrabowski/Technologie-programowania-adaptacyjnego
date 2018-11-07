@@ -4,13 +4,17 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF"
+        xmlns:converter="clr-namespace:WPF"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <TreeView Name="TreeV" Margin="312,19,8,23" RenderTransformOrigin="0.5,0.5" ItemsSource="{Binding  HierarchicalAreas}">
             <TreeView.ItemTemplate>
                 <HierarchicalDataTemplate ItemsSource="{Binding Path=Children}">
-                    <TextBlock Text="{Binding Path=Name}" Margin="0,0,4,0" />
+                    <StackPanel  Orientation="Horizontal">
+                        <TextBlock Padding="0 0 10 0" FontWeight="ExtraBold" Text="{Binding Path=ItemType, Converter={x:Static converter:ViewConverter.Converter}}"/>
+                        <TextBlock Text="{Binding Path=Name}" Margin="0,0,4,0" />
+                    </StackPanel>
                     <!--nie wystarczy. namespace, parametr, metoda informacje. informacje o klasie (publiczna prywatna internal).-->
                 </HierarchicalDataTemplate>
 

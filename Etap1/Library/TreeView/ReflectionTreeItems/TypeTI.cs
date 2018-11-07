@@ -28,7 +28,6 @@ namespace Library.TreeView.ReflectionTreeItems
                 type += model.m_Modifiers.Item4 == StaticEnum.Static ? StaticEnum.Static.ToString().ToLower() + " " : String.Empty;
                 return type;
             }
-
             return null;
         }
 
