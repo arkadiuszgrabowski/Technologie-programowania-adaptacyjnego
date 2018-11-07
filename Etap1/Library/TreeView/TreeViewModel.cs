@@ -29,10 +29,12 @@ namespace Library.TreeView
 
         private void LoadDLL()
         {
-            if (PathVariable.Substring(PathVariable.Length - 4) == ".dll")
-            assemblyMetadata = new AssemblyMetadata(Assembly.LoadFrom(PathVariable));
-            assemblyTi = new AssemblyTI(assemblyMetadata);
-            TreeViewLoaded();
+            if (PathVariable != null && PathVariable.Substring(PathVariable.Length - 4) == ".dll")
+            {
+                assemblyMetadata = new AssemblyMetadata(Assembly.LoadFrom(PathVariable));
+                assemblyTi = new AssemblyTI(assemblyMetadata);
+                TreeViewLoaded();
+            }
         }
         private void TreeViewLoaded()
         {
