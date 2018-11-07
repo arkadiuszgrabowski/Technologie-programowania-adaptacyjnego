@@ -26,15 +26,14 @@ namespace Console
         {
             System.Console.Clear();
             System.Console.Write(message);
-            System.Console.WriteLine("Path:" + ViewModel.PathVariable);
+            System.Console.WriteLine("Path: " + ViewModel.PathVariable);
             PrintData();
             System.Console.WriteLine("Type id that you want to expand, or if its already expanded, shrink it");
-            System.Console.WriteLine("Type B/b if You want to go back to Menu");
+            System.Console.WriteLine("Type 'back' if You want to go back to Menu");
             string temp = System.Console.ReadLine();
             switch (temp)
             {
-                case "B":
-                case "b":
+                case "back":
                     {
                         MainMenuView(String.Empty);
                         break;
@@ -57,36 +56,21 @@ namespace Console
         {
             System.Console.Clear();
             System.Console.Write(message);
-            System.Console.WriteLine("To open .dll type O/o and confirm with 'Enter'.\nTo exit the program type E/e and confirm with 'Enter'.");
-            string choose = System.Console.ReadLine();
-            switch (choose)
+            System.Console.WriteLine("Type absolute Path of .dll file you want to open:");
+            ViewModel.HierarchicalAreas = new ObservableCollection<TreeViewItem>();
+            ViewModel.Click_Browse.Execute(null);
+            ViewModel.Click_Button.Execute(null);
+            switch (ViewModel.PathVariable)
             {
-                case "O":
-                case "o":
+                case null:
                     {
-                        System.Console.Clear();
-                        System.Console.WriteLine("Type absolute Path of file you want to open");
-                        ViewModel.HierarchicalAreas = new ObservableCollection<TreeViewItem>();
-                        ViewModel.Click_Browse.Execute(null);
-                        ViewModel.Click_Button.Execute(null);
-                        if (ViewModel.PathVariable == null)
-                            MainMenuView("Wrong Path\n");
-                        else
-                        {
-                            ConsoleView = new ConsoleTreeView(new ObservableCollection<ConsoleTreeViewItem>(ViewModel.HierarchicalAreas.Select(n => new ConsoleTreeViewItem(n, 0))));
-                            TreeViewView(String.Empty);
-                        }
-                        break;
-                    }
-                case "E":
-                case "e":
-                    {
-                        Environment.Exit(0);
+                        MainMenuView("Wrong Path!\n");
                         break;
                     }
                 default:
                     {
-                        MainMenuView("Wrong option!\n");
+                        ConsoleView = new ConsoleTreeView(new ObservableCollection<ConsoleTreeViewItem>(ViewModel.HierarchicalAreas.Select(n => new ConsoleTreeViewItem(n, 0))));
+                        TreeViewView(String.Empty);
                         break;
                     }
             }
@@ -118,7 +102,7 @@ namespace Console
         private static void PrintWithIndent(string[] value, int indent)
         {
             System.Console.Write(new string(' ', indent * 3));
-            System.Console.ForegroundColor = ConsoleColor.Red;
+            System.Console.ForegroundColor = ConsoleColor.White;
             System.Console.Write(value[0]);
             System.Console.ForegroundColor = ConsoleColor.Cyan;
             System.Console.Write(value[1]);
