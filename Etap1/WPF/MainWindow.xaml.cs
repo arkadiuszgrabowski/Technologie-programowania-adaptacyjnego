@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using Library.Tracing;
 using Library.TreeView;
 
 namespace WPF
@@ -13,7 +14,8 @@ namespace WPF
             InitializeComponent();
             DataContext = new TreeViewModel()
             {
-                GetPath = new OpenDialogPath()
+                GetPath = new OpenDialogPath(),
+                Logger = new FileLogger("Logs.txt", "WPF")
             };
         }
     }

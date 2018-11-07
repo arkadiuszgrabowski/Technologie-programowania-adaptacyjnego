@@ -53,6 +53,9 @@
     <Compile Include="Reflection\ParameterMetadata.cs" />
     <Compile Include="Reflection\PropertyMetadata.cs" />
     <Compile Include="Reflection\TypeMetadata.cs" />
+    <Compile Include="Tracing\FileLogger.cs" />
+    <Compile Include="Tracing\ILogger.cs" />
+    <Compile Include="Tracing\LevelEnum.cs" />
     <Compile Include="TreeView\DelegateCommand.cs" />
     <Compile Include="TreeView\ReflectionTreeItems\AssemblyTI.cs" />
     <Compile Include="TreeView\ReflectionTreeItems\ItemTypeEnum.cs" />
