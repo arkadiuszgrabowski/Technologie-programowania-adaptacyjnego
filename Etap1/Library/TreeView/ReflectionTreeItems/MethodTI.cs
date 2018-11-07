@@ -1,20 +1,19 @@
 ﻿using Library.Reflection;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Library.TreeView.ReflectionTreeItems
 {
-    class MethodTI
+    public class MethodTI : TreeViewItem
     {
         public MethodMetadata MethodMetadata { get; set; }
-        public string Name { get; set; }
-        public MethodTI(MethodMetadata methodMetadata, ItemTypeEnum type)
+        public MethodTI(MethodMetadata methodMetadata, ItemTypeEnum type) : base(GetModifiers(methodMetadata) + methodMetadata.m_MethodName, type)
         {
             MethodMetadata = methodMetadata;
-            Name = GetModifiers(methodMetadata) + methodMetadata.m_MethodName;
         }
         public static string GetModifiers(MethodMetadata model)
         {
@@ -24,6 +23,28 @@ namespace Library.TreeView.ReflectionTreeItems
             type += model.Modifiers.Item3 == StaticEnum.Static ? StaticEnum.Static.ToString().ToLower() + " " : String.Empty;
             type += model.Modifiers.Item4 == VirtualEnum.Virtual ? VirtualEnum.Virtual.ToString().ToLower() + " " : String.Empty;
             return type;
+        }
+
+        protected override void BuildMyself(ObservableCollection<TreeViewItem> children)
+        {
+            if (MethodMetadata.GenericArguments != null)
+            {
+                foreach (TypeMetadata genericArgument in MethodMetadata.GenericArguments)
+                {
+                    children.Add(new TypeTI(TypeMetadata.TypeDictionary[genericArgument.m_typeName], ItemTypeEnum.GenericArgument));
+                }
+            }
+            if (MethodMetadata.Parameters != null)
+            {
+                foreach (ParameterMetadata parameter in MethodMetadata.Parameters)
+                {
+                    children.Add(new ParameterTI(parameter, ItemTypeEnum.Parameter));
+                }
+            }
+            if (MethodMetadata.ReturnType != null)
+            {
+                children.Add(new TypeTI(TypeMetadata.TypeDictionary[MethodMetadata.ReturnType.m_typeName], ItemTypeEnum.ReturnType));
+            }
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -31,6 +32,7 @@ namespace Library.Reflection
             //jezeli nie ma obiektu w dictionary to tworzymy typ, pusta klasa bez szczególów i referencja do obiektu.
             m_Type = GetTypeEnum(type);
             m_Attributes = type.GetCustomAttributes(false).Cast<Attribute>();
+            Fields = EmitFields(type);
         }
         #endregion
 
@@ -65,18 +67,20 @@ namespace Library.Reflection
         //vars
         public static Dictionary<string, TypeMetadata> TypeDictionary = new Dictionary<string, TypeMetadata>();
         public string m_typeName;
-        private string m_NamespaceName;
         public TypeMetadata m_BaseType;
-        private IEnumerable<TypeMetadata> m_GenericArguments;
+        public TypeEnum m_Type;
         public Tuple<AccessLevel, SealedEnum, AbstractEnum, StaticEnum> m_Modifiers;
-        public TypeEnum m_Type { get; set; }
+        public IEnumerable<ParameterMetadata> Fields;
+        public IEnumerable<MethodMetadata> m_Constructors;
+        public IEnumerable<PropertyMetadata> m_Properties;
+        public IEnumerable<MethodMetadata> m_Methods;
+        public TypeMetadata m_DeclaringType;
+        public IEnumerable<TypeMetadata> m_ImplementedInterfaces;
+        public IEnumerable<TypeMetadata> m_NestedTypes;
+        public IEnumerable<TypeMetadata> m_GenericArguments;
+        private string m_NamespaceName;
         private IEnumerable<Attribute> m_Attributes;
-        private IEnumerable<TypeMetadata> m_ImplementedInterfaces;
-        private IEnumerable<TypeMetadata> m_NestedTypes;
-        private IEnumerable<PropertyMetadata> m_Properties;
-        private TypeMetadata m_DeclaringType;
-        private IEnumerable<MethodMetadata> m_Methods;
-        private IEnumerable<MethodMetadata> m_Constructors;
+
         //constructors
         private TypeMetadata(string typeName, string namespaceName)
         {
@@ -112,6 +116,20 @@ namespace Library.Reflection
                    type.IsValueType ? TypeEnum.Struct :
                    type.IsInterface ? TypeEnum.Interface :
                    TypeEnum.Class;
+        }
+
+        private static List<ParameterMetadata> EmitFields(Type type)
+        {
+            List<FieldInfo> fieldInfo = type.GetFields(BindingFlags.NonPublic | BindingFlags.DeclaredOnly | BindingFlags.Public |
+                                           BindingFlags.Static | BindingFlags.Instance).ToList();
+
+            List<ParameterMetadata> parameters = new List<ParameterMetadata>();
+            foreach (FieldInfo field in fieldInfo)
+            {
+                StoreType(field.FieldType);
+                parameters.Add(new ParameterMetadata(field.Name, EmitReference(field.FieldType)));
+            }
+            return parameters;
         }
         static Tuple<AccessLevel, SealedEnum, AbstractEnum, StaticEnum> EmitModifiers(Type type)
         {

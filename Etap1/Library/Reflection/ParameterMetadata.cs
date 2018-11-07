@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Library.Reflection
 {
-    class ParameterMetadata
+    public class ParameterMetadata
     {
         public TypeMetadata Type { get; set; }
         public string m_ParameterName;

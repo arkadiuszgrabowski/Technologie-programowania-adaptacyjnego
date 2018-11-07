@@ -58,6 +58,8 @@
     <Compile Include="TreeView\ReflectionTreeItems\ItemTypeEnum.cs" />
     <Compile Include="TreeView\ReflectionTreeItems\MethodTI.cs" />
     <Compile Include="TreeView\ReflectionTreeItems\NamespaceTI.cs" />
+    <Compile Include="TreeView\ReflectionTreeItems\ParameterTI.cs" />
+    <Compile Include="TreeView\ReflectionTreeItems\PropertyTI.cs" />
     <Compile Include="TreeView\ReflectionTreeItems\TypeTI.cs" />
     <Compile Include="TreeView\TreeViewItem.cs" />
     <Compile Include="TreeView\TreeViewModel.cs" />

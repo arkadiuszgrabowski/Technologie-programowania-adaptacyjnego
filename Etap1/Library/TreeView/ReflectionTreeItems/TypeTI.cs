@@ -34,66 +34,66 @@ namespace Library.TreeView.ReflectionTreeItems
 
         protected override void BuildMyself(ObservableCollection<TreeViewItem> children)
         {
-            //if (TypeData.m_BaseType != null)
-            //{
-            //    children.Add(new TreeViewItem(new TypeTI(TypeMetadata.TypeDictionary[TypeData.m_BaseType.m_typeName]), ItemTypeEnum.BaseType));
-            //}
-            //if (TypeData.DeclaringType != null)
-            //{
-            //    children.Add(new TypeTreeItem(TypeModel.TypeDictionary[TypeData.DeclaringType.Name], ItemTypeEnum.Type));
-            //}
-            //if (TypeData.Properties != null)
-            //{
-            //    foreach (PropertyModel propertyModel in TypeData.Properties)
-            //    {
-            //        children.Add(new PropertyTreeItem(propertyModel, GetModifiers(propertyModel.Type) + propertyModel.Type.Name + " " + propertyModel.Name));
-            //    }
-            //}
-            //if (TypeData.Fields != null)
-            //{
-            //    foreach (ParameterModel parameterModel in TypeData.Fields)
-            //    {
-            //        children.Add(new ParameterTreeItem(parameterModel, ItemTypeEnum.Field));
-            //    }
-            //}
-            //if (TypeData.GenericArguments != null)
-            //{
-            //    foreach (TypeModel typeModel in TypeData.GenericArguments)
-            //    {
-            //        children.Add(new TypeTreeItem(TypeModel.TypeDictionary[typeModel.Name], ItemTypeEnum.GenericArgument));
-            //    }
-            //}
-            //if (TypeData.ImplementedInterfaces != null)
-            //{
-            //    foreach (TypeModel typeModel in TypeData.ImplementedInterfaces)
-            //    {
-            //        children.Add(new TypeTreeItem(TypeModel.TypeDictionary[typeModel.Name], ItemTypeEnum.InmplementedInterface));
-            //    }
-            //}
-            //if (TypeData.NestedTypes != null)
-            //{
-            //    foreach (TypeModel typeModel in TypeData.NestedTypes)
-            //    {
-            //        ItemTypeEnum type = typeModel.Type == TypeEnum.Class ? ItemTypeEnum.NestedClass :
-            //            typeModel.Type == TypeEnum.Struct ? ItemTypeEnum.NestedStructure :
-            //            typeModel.Type == TypeEnum.Enum ? ItemTypeEnum.NestedEnum : ItemTypeEnum.NestedType;
-            //        children.Add(new TypeTreeItem(TypeModel.TypeDictionary[typeModel.Name], type));
-            //    }
-            //}
-            //if (TypeData.Methods != null)
-            //{
-            //    foreach (MethodModel methodModel in TypeData.Methods)
-            //    {
-            //        children.Add(new MethodTreeItem(methodModel, methodModel.Extension ? ItemTypeEnum.ExtensionMethod : ItemTypeEnum.Method));
-            //    }
-            //}
-            //if (TypeData.Constructors != null)
-            //{
-            //    foreach (MethodModel methodModel in TypeData.Constructors)
-            //    {
-            //        children.Add(new MethodTreeItem(methodModel, ItemTypeEnum.Constructor));
-            //    }
-            //}
+            if (TypeData.m_BaseType != null)
+            {
+                children.Add(new TypeTI(TypeMetadata.TypeDictionary[TypeData.m_BaseType.m_typeName], ItemTypeEnum.BaseType));
+            }
+            if (TypeData.m_DeclaringType != null)
+            {
+                children.Add(new TypeTI(TypeMetadata.TypeDictionary[TypeData.m_DeclaringType.m_typeName], ItemTypeEnum.Type));
+            }
+            if (TypeData.m_Properties != null)
+            {
+                foreach (PropertyMetadata propertyMetadata in TypeData.m_Properties)
+                {
+                    children.Add(new PropertyTI(propertyMetadata, GetModifiers(propertyMetadata.Type) + propertyMetadata.Type.m_typeName + " " + propertyMetadata.m_PropertyName));
+                }
+            }
+            if (TypeData.Fields != null)
+            {
+                foreach (ParameterMetadata parameterMetadata in TypeData.Fields)
+                {
+                    children.Add(new ParameterTI(parameterMetadata, ItemTypeEnum.Field));
+                }
+            }
+            if (TypeData.m_GenericArguments != null)
+            {
+                foreach (TypeMetadata typeMetadata in TypeData.m_GenericArguments)
+                {
+                    children.Add(new TypeTI(TypeMetadata.TypeDictionary[typeMetadata.m_typeName], ItemTypeEnum.GenericArgument));
+                }
+            }
+            if (TypeData.m_ImplementedInterfaces != null)
+            {
+                foreach (TypeMetadata typeMetadata in TypeData.m_ImplementedInterfaces)
+                {
+                    children.Add(new TypeTI(TypeMetadata.TypeDictionary[typeMetadata.m_typeName], ItemTypeEnum.InmplementedInterface));
+                }
+            }
+            if (TypeData.m_NestedTypes != null)
+            {
+                foreach (TypeMetadata typeMetadata in TypeData.m_NestedTypes)
+                {
+                    ItemTypeEnum type = typeMetadata.m_Type == TypeEnum.Class ? ItemTypeEnum.NestedClass :
+                        typeMetadata.m_Type == TypeEnum.Struct ? ItemTypeEnum.NestedStructure :
+                        typeMetadata.m_Type == TypeEnum.Enum ? ItemTypeEnum.NestedEnum : ItemTypeEnum.NestedType;
+                    children.Add(new TypeTI(TypeMetadata.TypeDictionary[typeMetadata.m_typeName], type));
+                }
+            }
+            if (TypeData.m_Methods != null)
+            {
+                foreach (MethodMetadata methodMetadata in TypeData.m_Methods)
+                {
+                    children.Add(new MethodTI(methodMetadata, methodMetadata.Extension ? ItemTypeEnum.ExtensionMethod : ItemTypeEnum.Method));
+                }
+            }
+            if (TypeData.m_Constructors != null)
+            {
+                foreach (MethodMetadata methodMetadata in TypeData.m_Constructors)
+                {
+                    children.Add(new MethodTI(methodMetadata, ItemTypeEnum.Constructor));
+                }
+            }
         }
 
     }

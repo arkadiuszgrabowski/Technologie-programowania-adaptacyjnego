@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Library.Reflection
 {
-    class MethodMetadata
+    public class MethodMetadata
     {
         public List<TypeMetadata> GenericArguments { get; set; }
         public Tuple<AccessLevel, AbstractEnum, StaticEnum, VirtualEnum> Modifiers { get; set; }

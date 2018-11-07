@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Library.Reflection
 {
-    class PropertyMetadata
+    public class PropertyMetadata
     {
         public TypeMetadata Type { get; set; }
         public string m_PropertyName;
