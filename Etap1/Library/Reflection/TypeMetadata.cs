@@ -29,7 +29,7 @@ namespace Library.Reflection
             //Dictionary singleton albo property zarządzające
             //statyczne proprerty klucz nazwa typu, daj mnie ten typ emitreference, dopisac metode
             //jezeli nie ma obiektu w dictionary to tworzymy typ, pusta klasa bez szczególów i referencja do obiektu.
-            m_TypeKind = GetTypeKind(type);
+            m_Type = GetTypeEnum(type);
             m_Attributes = type.GetCustomAttributes(false).Cast<Attribute>();
         }
         #endregion
@@ -66,10 +66,10 @@ namespace Library.Reflection
         public static Dictionary<string, TypeMetadata> TypeDictionary = new Dictionary<string, TypeMetadata>();
         public string m_typeName;
         private string m_NamespaceName;
-        private TypeMetadata m_BaseType;
+        public TypeMetadata m_BaseType;
         private IEnumerable<TypeMetadata> m_GenericArguments;
         public Tuple<AccessLevel, SealedEnum, AbstractEnum, StaticEnum> m_Modifiers;
-        private TypeKind m_TypeKind;
+        public TypeEnum m_Type { get; set; }
         private IEnumerable<Attribute> m_Attributes;
         private IEnumerable<TypeMetadata> m_ImplementedInterfaces;
         private IEnumerable<TypeMetadata> m_NestedTypes;
@@ -106,12 +106,12 @@ namespace Library.Reflection
             return from currentInterface in interfaces
                    select EmitReference(currentInterface);
         }
-        private static TypeKind GetTypeKind(Type type) //#80 TPA: Reflection - Invalid return value of GetTypeKind() 
+        private static TypeEnum GetTypeEnum(Type type)
         {
-            return type.IsEnum ? TypeKind.EnumType :
-                   type.IsValueType ? TypeKind.StructType :
-                   type.IsInterface ? TypeKind.InterfaceType :
-                   TypeKind.ClassType;
+            return type.IsEnum ? TypeEnum.Enum :
+                   type.IsValueType ? TypeEnum.Struct :
+                   type.IsInterface ? TypeEnum.Interface :
+                   TypeEnum.Class;
         }
         static Tuple<AccessLevel, SealedEnum, AbstractEnum, StaticEnum> EmitModifiers(Type type)
         {

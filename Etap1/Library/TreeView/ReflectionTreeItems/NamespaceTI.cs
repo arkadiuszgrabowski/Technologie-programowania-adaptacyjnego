@@ -8,25 +8,29 @@ using Library.Reflection;
 
 namespace Library.TreeView.ReflectionTreeItems
 {
-    public class NamespaceTI : ITreeView
+    public class NamespaceTI : TreeViewItem
     {
-        public string Name { get; set; }
 
         public List<TypeMetadata> TypeList { get; set; }
 
-        public NamespaceTI(NamespaceMetadata namespaceMetadata)
+        public NamespaceTI(NamespaceMetadata namespaceMetadata) : base(namespaceMetadata.m_NamespaceName, ItemTypeEnum.Namespace)
         {
-            Name = namespaceMetadata.m_NamespaceName;
             TypeList = namespaceMetadata.m_Types;
         }
 
-        public void BuiltMyself(ObservableCollection<TreeViewItem> children)
+        protected override void BuildMyself(ObservableCollection<TreeViewItem> children)
         {
-            TypeTI tmp;
-            foreach (TypeMetadata types in TypeList)
+            if (TypeList != null)
             {
-                tmp = new TypeTI(types);
-                children.Add(new TreeViewItem(tmp, tmp.Name));
+                foreach (TypeMetadata typeMetadata in TypeList)
+                {
+                    ItemTypeEnum typeEnum = typeMetadata.m_Type == TypeEnum.Class ?
+                        ItemTypeEnum.Class : typeMetadata.m_Type == TypeEnum.Enum ?
+                            ItemTypeEnum.Enum : typeMetadata.m_Type == TypeEnum.Interface ?
+                                ItemTypeEnum.Interface : ItemTypeEnum.Struct;
+
+                    children.Add(new TypeTI(TypeMetadata.TypeDictionary[typeMetadata.m_typeName], typeEnum));
+                }
             }
         }
     }

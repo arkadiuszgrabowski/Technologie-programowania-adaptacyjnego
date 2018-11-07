@@ -36,8 +36,7 @@ namespace Library.TreeView
         }
         private void TreeViewLoaded()
         {
-            TreeViewItem rootItem = new TreeViewItem(assemblyTi, PathVariable.Substring(PathVariable.LastIndexOf('\\') + 1));
-            HierarchicalAreas.Add(rootItem);
+             HierarchicalAreas.Add(assemblyTi);
         }
 
         private void Browse()
