@@ -44,6 +44,13 @@ namespace Library.Reflection
                 return new TypeMetadata(type.Name, type.Namespace, EmitGenericArguments(type.GetGenericArguments()));
             //zmiana GetNamespace na namespace
         }
+        public static void StoreType(Type type)
+        {
+            if (!TypeDictionary.ContainsKey(type.Name))
+            {
+                new TypeMetadata(type);
+            }
+        }
         public static IEnumerable<TypeMetadata> EmitGenericArguments(IEnumerable<Type> arguments)
         {
             return from Type _argument in arguments select EmitReference(_argument);
@@ -52,6 +59,7 @@ namespace Library.Reflection
 
         #region private
         //vars
+        public static Dictionary<string, TypeMetadata> TypeDictionary = new Dictionary<string, TypeMetadata>();
         public string m_typeName;
         private string m_NamespaceName;
         private TypeMetadata m_BaseType;

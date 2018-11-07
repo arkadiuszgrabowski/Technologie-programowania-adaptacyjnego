@@ -17,6 +17,7 @@ namespace Library.TreeView.ReflectionTreeItems
         public NamespaceTI(NamespaceMetadata namespaceMetadata)
         {
             Name = namespaceMetadata.m_NamespaceName;
+            TypeList = namespaceMetadata.m_Types;
         }
 
         public void BuiltMyself(ObservableCollection<TreeViewItem> children)
