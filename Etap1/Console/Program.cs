@@ -59,7 +59,7 @@ namespace Console
             System.Console.WriteLine("Type absolute Path of .dll file you want to open:");
             ViewModel.HierarchicalAreas = new ObservableCollection<TreeViewItem>();
             ViewModel.Click_Browse.Execute(null);
-            ViewModel.Click_Button.Execute(null);
+            ViewModel.Click_Open.Execute(null);
             switch (ViewModel.PathVariable)
             {
                 case null:

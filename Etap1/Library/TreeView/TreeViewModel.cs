@@ -17,16 +17,16 @@ namespace Library.TreeView
         public TreeViewModel()
         {
             HierarchicalAreas = new ObservableCollection<TreeViewItem>();
-            Click_Button = new RelayCommand(LoadDLL);
+            Click_Open = new RelayCommand(LoadDLL);
             Click_Browse = new RelayCommand(Browse);
         }
 
         public ObservableCollection<TreeViewItem> HierarchicalAreas { get; set; }
         public string PathVariable { get; set; }
-        public ICommand Click_Button { get; }
+        public ICommand Click_Open { get; }
         public ICommand Click_Browse { get; }
-        private AssemblyTI assemblyTi;
-        private AssemblyMetadata assemblyMetadata;
+        public AssemblyTI assemblyTi;
+        public AssemblyMetadata assemblyMetadata;
         public IOpenDialogPath GetPath { get; set; }
         public ILogger Logger { get; set; }
 
@@ -40,7 +40,7 @@ namespace Library.TreeView
                     Logger.Log("Starting reflection...", LevelEnum.Information);
                     assemblyMetadata = new AssemblyMetadata(Assembly.LoadFrom(PathVariable));
                     assemblyTi = new AssemblyTI(assemblyMetadata);
-                    Logger.Log("Reflection seccess!", LevelEnum.Success);
+                    Logger.Log("Reflection success!", LevelEnum.Success);
                 }
                 catch (Exception e)
                 {
