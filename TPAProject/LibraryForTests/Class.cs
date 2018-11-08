@@ -8,6 +8,6 @@ namespace LibraryForTests
 {
     public class Class
     {
-
+        private string name;
     }
 }

@@ -24,7 +24,6 @@ namespace WPF
                 MessageBox.Show("No files selected");
                 return null;
             }
-
             return openFileDialog.FileName;
 
         }

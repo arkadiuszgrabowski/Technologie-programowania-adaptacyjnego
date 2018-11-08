@@ -15,23 +15,17 @@
                         <TextBlock Padding="0 0 10 0" FontWeight="ExtraBold" Text="{Binding Path=ItemType, Converter={x:Static converter:ViewConverter.Converter}}"/>
                         <TextBlock Text="{Binding Path=Name}" Margin="0,0,4,0" />
                     </StackPanel>
-                    <!--nie wystarczy. namespace, parametr, metoda informacje. informacje o klasie (publiczna prywatna internal).-->
                 </HierarchicalDataTemplate>
 
             </TreeView.ItemTemplate>
             <TreeView.ItemContainerStyle>
                 <Style TargetType="TreeViewItem">
-                    <!--target type, typ który jest wyświetlany-->
                     <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
-                    <!--setter property isexpanded bindowanie z property, zmieni wartość isexpanded wartość zostanie podstawiona-->
-                    <!--klikniecie na plusik ale nie wiadomo na jakim poziomie, wykorzystanie stylów-->
                 </Style>
             </TreeView.ItemContainerStyle>
         </TreeView>
-        <Button x:Name="LoadDLL" Content="Show TreeView" Visibility="{Binding ChangeControlVisibility,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"  Command="{Binding Click_Button}" HorizontalAlignment="Left" Margin="85,206,0,0" VerticalAlignment="Top" Width="134" Height="86" />
+        <Button x:Name="LoadDLL" Content="Show TreeView"  Command="{Binding Click_Open}" HorizontalAlignment="Left" Margin="85,206,0,0" VerticalAlignment="Top" Width="134" Height="86" />
         <TextBox Text="{Binding Path=PathVariable,UpdateSourceTrigger=PropertyChanged}"  HorizontalAlignment="Left" Height="71" Margin="10,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="280"/>
-        <!--usunalem binding mode=oneWay bo nie zczytywalo path ale nie wiem czy tak moze byc-->
         <Button x:Name="Browse" Content="Browse" Command="{Binding Click_Browse}" HorizontalAlignment="Left" Margin="114,123,0,268" Width="76"/>
-        <!--icommand zablokowanie przycisku-->
     </Grid>
 </Window>

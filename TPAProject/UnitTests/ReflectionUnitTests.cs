@@ -11,7 +11,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace UnitTests
 {
     [TestClass]
-    public class RecursionUnitTests
+    public class ReflectionUnitTests
     {
         public static TreeViewModel viewModel { get; set; } = new TreeViewModel()
         {
@@ -25,14 +25,6 @@ namespace UnitTests
                 return @"..\..\..\LibraryForTests\bin\Debug\LibraryForTests.dll";
             }
         }
-        [TestMethod]
-        public void GetPathTestMethod()
-        {
-            viewModel.Click_Browse.Execute(null);
-            viewModel.Click_Open.Execute(null);
-            Assert.AreEqual(viewModel.GetPath.GetPath(), @"..\..\..\LibraryForTests\bin\Debug\LibraryForTests.dll");
-        }
-
         [TestMethod]
         public void CheckNamespacesTestMethod()
         {
@@ -56,6 +48,16 @@ namespace UnitTests
             Assert.AreEqual(viewModel.assemblyMetadata.m_Namespaces[1].m_Types[0].TypeName, "ClassA");
             Assert.AreEqual(viewModel.assemblyMetadata.m_Namespaces[1].m_Types[1].TypeName, "ClassB");
             Assert.AreEqual(viewModel.assemblyMetadata.m_Namespaces[1].m_Types[2].TypeName, "ClassC");
+        }
+        [TestMethod]
+        public void CheckFieldsTestMethod()
+        {
+            viewModel.Click_Browse.Execute(null);
+            viewModel.Click_Open.Execute(null);
+            Assert.AreEqual(viewModel.assemblyMetadata.m_Namespaces[0].m_Types[0].Fields[0].m_ParameterName, "name");
+            Assert.AreEqual(viewModel.assemblyMetadata.m_Namespaces[1].m_Types[0].Fields[0].m_ParameterName, "classB");
+            Assert.AreEqual(viewModel.assemblyMetadata.m_Namespaces[1].m_Types[1].Fields[0].m_ParameterName, "classC");
+            Assert.AreEqual(viewModel.assemblyMetadata.m_Namespaces[1].m_Types[2].Fields[0].m_ParameterName, "classA");
         }
     }
 }
