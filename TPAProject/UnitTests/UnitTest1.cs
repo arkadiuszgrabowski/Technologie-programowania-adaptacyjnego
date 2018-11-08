@@ -9,7 +9,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace UnitTests
 {
     [TestClass]
-    public class MVVMUnitTests
+    public class UnitTest1
     {
         public static TreeViewModel viewModel { get; set; } = new TreeViewModel()
         {
