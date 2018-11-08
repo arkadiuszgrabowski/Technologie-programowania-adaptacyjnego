@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 using System.Reflection;
 using Library;
 using Library.Reflection;
@@ -34,8 +35,6 @@ namespace UnitTests
             Assert.AreEqual(viewModel.assemblyMetadata.m_Namespaces[0].m_NamespaceName, "LibraryForTests");
             Assert.AreEqual(viewModel.assemblyMetadata.m_Namespaces[1].m_NamespaceName, "LibraryForTests.Recursion");
         }
-
-
         [TestMethod]
         public void CheckClassesTestMethod()
         {
@@ -58,6 +57,13 @@ namespace UnitTests
             Assert.AreEqual(viewModel.assemblyMetadata.m_Namespaces[1].m_Types[0].Fields[0].m_ParameterName, "classB");
             Assert.AreEqual(viewModel.assemblyMetadata.m_Namespaces[1].m_Types[1].Fields[0].m_ParameterName, "classC");
             Assert.AreEqual(viewModel.assemblyMetadata.m_Namespaces[1].m_Types[2].Fields[0].m_ParameterName, "classA");
+        }
+        [TestMethod]
+        public void LoggerTestMethod()
+        {
+            viewModel.Click_Browse.Execute(null);
+            viewModel.Click_Open.Execute(null);
+            Assert.IsTrue(File.Exists(@"..\..\..\WPF\bin\Debug\Logs.txt"));
         }
     }
 }
