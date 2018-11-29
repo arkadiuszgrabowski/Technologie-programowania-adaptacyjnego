@@ -2,6 +2,8 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Reflection;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using Library.MVVM;
@@ -21,11 +23,12 @@ namespace Library.TreeView
             HierarchicalAreas = new ObservableCollection<TreeViewItem>();
             Click_Open = new RelayCommand(LoadDLL);
             Click_Browse = new RelayCommand(Browse);
-            Click_Serialize = new RelayCommand(Serialize);
-            Click_Deserialize = new RelayCommand(Deserialize);
+            Click_Serialize = new RelayCommand(SerializeTask);
+            Click_Deserialize = new RelayCommand(DeserializeTask);
         }
 
         public ObservableCollection<TreeViewItem> HierarchicalAreas { get; set; }
+        System.Threading.SynchronizationContext uiContext { get; set; }
         public string PathVariable { get; set; }
         public ICommand Click_Open { get; }
         public ICommand Click_Browse { get; }
@@ -86,7 +89,8 @@ namespace Library.TreeView
         }
         private void SerializeTask()
         {
-
+            Task task = new Task(() => Serialize());
+            task.Start();
         }
         private void Deserialize()
         {
@@ -111,11 +115,27 @@ namespace Library.TreeView
             {
                 Logger.Log("Deserialization failed with exception: " + e.Message, LevelEnum.Error);
             }
-            TreeViewLoaded();
+            if(uiContext != null)
+            {
+                uiContext.Send(x => TreeViewLoaded(), null);
+            } 
         }
         private void DeserializeTask()
         {
-
+            uiContext = SynchronizationContext.Current;
+            if(uiContext != null)
+            {
+                Task task = new Task(() => Deserialize());
+                task.Start();
+            }
+            else
+            {
+                Task task = new Task(() => Deserialize());
+                task.Start();
+                task.Wait();
+                TreeViewLoaded();
+            }
+            
         }
     }
 }
