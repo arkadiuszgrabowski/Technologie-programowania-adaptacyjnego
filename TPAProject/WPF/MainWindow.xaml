@@ -25,6 +25,8 @@
             </TreeView.ItemContainerStyle>
         </TreeView>
         <Button x:Name="LoadDLL" Content="Show TreeView"  Command="{Binding Click_Open}" HorizontalAlignment="Left" Margin="85,206,0,0" VerticalAlignment="Top" Width="134" Height="86" />
+        <Button x:Name="Serialize" Content="Serialize"  Command="{Binding Click_Serialize}" HorizontalAlignment="Left" Margin="48,324,0,0" VerticalAlignment="Top" Width="76" Height="25" />
+        <Button x:Name="Deserialize" Content="Deserialize"  Command="{Binding Click_Deserialize}" HorizontalAlignment="Left" Margin="182,324,0,0" VerticalAlignment="Top" Width="74" Height="25" />
         <TextBox Text="{Binding Path=PathVariable,UpdateSourceTrigger=PropertyChanged}"  HorizontalAlignment="Left" Height="71" Margin="10,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="280"/>
         <Button x:Name="Browse" Content="Browse" Command="{Binding Click_Browse}" HorizontalAlignment="Left" Margin="114,123,0,268" Width="76"/>
     </Grid>

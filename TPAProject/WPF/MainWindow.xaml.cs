@@ -15,7 +15,8 @@ namespace WPF
             DataContext = new TreeViewModel()
             {
                 GetPath = new OpenDialogPath(),
-                Logger = new FileLogger("Logs.txt", "WPF")
+                Logger = new FileLogger("Logs.txt", "WPF"),
+                Serializer = new XMLSerializer.XMLSerializer(@"model.xml")
             };
         }
     }

@@ -3,25 +3,46 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Library.Reflection
 {
+    [DataContract(IsReference = true)]
     public class TypeMetadata
     {
+        [DataMember]
         public string TypeName { get; set; }
+        [DataMember]
+        public string AssemblyName { get; set; }
+        [DataMember]
+        public bool IsExternal { get; set; } = true;
+        [DataMember]
+        public bool IsGeneric { get; set; }
+        [DataMember]
         public string NamespaceName { get; set; }
+        [DataMember]
         public TypeMetadata BaseType { get; set; }
+        [DataMember]
         public List<TypeMetadata> GenericArguments { get; set; }
+        [DataMember]
         public Tuple<AccessLevel, SealedEnum, AbstractEnum, StaticEnum> Modifiers { get; set; }
+        [DataMember]
         public TypeEnum Type { get; set; }
+        [DataMember]
         public List<TypeMetadata> ImplementedInterfaces { get; set; }
+        [DataMember]
         public List<TypeMetadata> NestedTypes { get; set; }
+        [DataMember]
         public List<PropertyMetadata> Properties { get; set; }
+        [DataMember]
         public TypeMetadata DeclaringType { get; set; }
+        [DataMember]
         public List<MethodMetadata> Methods { get; set; }
+        [DataMember]
         public List<MethodMetadata> Constructors { get; set; }
+        [DataMember]
         public List<ParameterMetadata> Fields { get; set; }
 
         public TypeMetadata(Type type)
@@ -31,7 +52,14 @@ namespace Library.Reflection
             {
                 TypeSingleton.Instance.Add(TypeName, this);
             }
+            IsGeneric = type.IsGenericParameter;
+            AssemblyName = type.AssemblyQualifiedName;
 
+
+        }
+
+        private void Analyze(Type type)
+        {
             Type = GetTypeEnum(type);
             BaseType = EmitExtends(type.BaseType);
             Modifiers = EmitModifiers(type);
@@ -44,6 +72,8 @@ namespace Library.Reflection
             GenericArguments = !type.IsGenericTypeDefinition ? null : EmitGenericArguments(type);
             Properties = PropertyMetadata.EmitProperties(type);
             Fields = EmitFields(type);
+            IsExternal = false;
+            _isAnalyzed = true;
         }
 
         private TypeMetadata(string typeName, string namespaceName)
@@ -55,6 +85,21 @@ namespace Library.Reflection
         private TypeMetadata(string typeName, string namespaceName, IEnumerable<TypeMetadata> genericArguments) : this(typeName, namespaceName)
         {
             this.GenericArguments = genericArguments.ToList();
+        }
+
+        public static TypeMetadata EmitType(Type type)
+        {
+            if (!TypeSingleton.Instance.ContainsKey(type.Name))
+            {
+                TypeSingleton.Instance.Add(type.Name, new TypeMetadata(type));
+            }
+
+            if (!TypeSingleton.Instance.Get(type.Name)._isAnalyzed)
+            {
+                TypeSingleton.Instance.Get(type.Name).Analyze(type);
+            }
+
+            return TypeSingleton.Instance.Get(type.Name);
         }
 
 
@@ -160,5 +205,6 @@ namespace Library.Reflection
             StoreType(baseType);
             return EmitReference(baseType);
         }
+        private bool _isAnalyzed = false;
     }
 }

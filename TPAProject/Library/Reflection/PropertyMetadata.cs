@@ -2,15 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Library.Reflection
 {
+    [DataContract(IsReference = true)]
     public class PropertyMetadata
     {
+        [DataMember]
         public TypeMetadata Type { get; set; }
-        public string m_PropertyName;
+        [DataMember]
+        public string m_PropertyName { get; set; }
 
         public PropertyMetadata(string name, TypeMetadata propertyType)
         {

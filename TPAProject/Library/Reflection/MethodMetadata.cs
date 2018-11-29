@@ -3,19 +3,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Library.Reflection
 {
+    [DataContract(IsReference = true)]
     public class MethodMetadata
     {
+        [DataMember]
         public List<TypeMetadata> GenericArguments { get; set; }
+        [DataMember]
         public Tuple<AccessLevel, AbstractEnum, StaticEnum, VirtualEnum> Modifiers { get; set; }
+        [DataMember]
         public TypeMetadata ReturnType { get; set; }
+        [DataMember]
         public bool Extension { get; set; }
+        [DataMember]
         public List<ParameterMetadata> Parameters { get; set; }
-        public string m_MethodName;
+        [DataMember]
+        public string m_MethodName { get; set; }
 
         public MethodMetadata(MethodBase method)
         {

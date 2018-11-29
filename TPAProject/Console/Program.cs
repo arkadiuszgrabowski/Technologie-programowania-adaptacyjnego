@@ -14,7 +14,8 @@ namespace Console
         public static TreeViewModel ViewModel { get; set; } = new TreeViewModel()
         {
             GetPath = new ConsolePath(),
-            Logger = new FileLogger("Logs.txt", "Console")
+            Logger = new FileLogger("Logs.txt", "Console"),
+            Serializer = new XMLSerializer.XMLSerializer(@"model.xml")
         };
         public static ConsoleTreeView ConsoleView { get; set; }
         static void Main(string[] args)
