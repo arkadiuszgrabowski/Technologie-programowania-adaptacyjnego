@@ -84,6 +84,10 @@ namespace Library.TreeView
             }
             
         }
+        private void SerializeTask()
+        {
+
+        }
         private void Deserialize()
         {
             Logger.Log("Deserialize started...", LevelEnum.Information);
@@ -108,6 +112,10 @@ namespace Library.TreeView
                 Logger.Log("Deserialization failed with exception: " + e.Message, LevelEnum.Error);
             }
             TreeViewLoaded();
+        }
+        private void DeserializeTask()
+        {
+
         }
     }
 }

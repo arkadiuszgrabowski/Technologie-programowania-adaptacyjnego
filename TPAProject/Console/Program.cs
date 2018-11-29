@@ -20,7 +20,7 @@ namespace Console
         public static ConsoleTreeView ConsoleView { get; set; }
         static void Main(string[] args)
         {
-            MainMenuView(String.Empty);
+            ChoseMenu(String.Empty);
         }
     
         private static void TreeViewView(string message)
@@ -31,12 +31,19 @@ namespace Console
             PrintData();
             System.Console.WriteLine("Type id that you want to expand, or if its already expanded, shrink it");
             System.Console.WriteLine("Type 'back' if You want to go back to Menu");
+            System.Console.WriteLine("Type 'serialize' if You want to serialize data");
             string temp = System.Console.ReadLine();
             switch (temp)
             {
                 case "back":
                     {
-                        MainMenuView(String.Empty);
+                        ChoseMenu(String.Empty);
+                        break;
+                    }
+                case "serialize":
+                    {
+                        ViewModel.Click_Serialize.Execute(null);
+                        TreeViewView("Serialized!" + Environment.NewLine);
                         break;
                     }
                 default:
@@ -53,6 +60,37 @@ namespace Console
                     }
             }
         }
+        private static void ChoseMenu(string message)
+        {
+            string menu1 = String.Empty;
+            System.Console.Clear();
+            System.Console.Write(message);
+            System.Console.WriteLine("Type 'deserialize' to deserialize from file or 'dll' to load dll:");
+            menu1 = System.Console.ReadLine();
+            switch (menu1)
+            {
+                case "deserialize":
+                    {
+                        ViewModel.HierarchicalAreas = new ObservableCollection<TreeViewItem>();
+                        ViewModel.Click_Deserialize.Execute(null);
+                        ViewModel.PathVariable = ViewModel.Serializer.GetPath(); ;
+                        ConsoleView = new ConsoleTreeView(new ObservableCollection<ConsoleTreeViewItem>(ViewModel.HierarchicalAreas.Select(n => new ConsoleTreeViewItem(n, 0))));
+                        TreeViewView(String.Empty);
+                        break;
+                    }
+                case "dll":
+                    {
+                        MainMenuView(String.Empty);
+                        break;
+                    }
+                default:
+                    {
+                        ChoseMenu("Wrong Option!\n");
+                        break;
+                    }
+            }
+        }
+
         private static void MainMenuView(string message)
         {
             System.Console.Clear();

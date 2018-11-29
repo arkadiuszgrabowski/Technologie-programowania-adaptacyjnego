@@ -10,6 +10,7 @@ namespace Library.Serialization
     {
         void Serialize<T>(T _object);
         T Deserialize<T>();
+        string GetPath();
 
     }
 }

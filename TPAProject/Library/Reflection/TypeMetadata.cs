@@ -48,10 +48,10 @@ namespace Library.Reflection
         public TypeMetadata(Type type)
         {
             TypeName = type.Name;
-            if (!TypeSingleton.Instance.ContainsKey(TypeName))
-            {
-                TypeSingleton.Instance.Add(TypeName, this);
-            }
+            //if (!TypeSingleton.Instance.ContainsKey(TypeName))
+            //{
+            //    TypeSingleton.Instance.Add(TypeName, this);
+            //}
             IsGeneric = type.IsGenericParameter;
             AssemblyName = type.AssemblyQualifiedName;
 

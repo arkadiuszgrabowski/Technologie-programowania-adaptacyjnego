@@ -11,7 +11,7 @@ namespace XMLSerializer
 {
     public class XMLSerializer : ISerializer
     {
-        private string path = @".";
+        public string path = @".";
         public XMLSerializer(string _path)
         {
             path = _path;
@@ -33,6 +33,11 @@ namespace XMLSerializer
             {
                 return (T)dataContractSerializer.ReadObject(fileStream);
             }
+        }
+
+        public string GetPath()
+        {
+            return path;
         }
     }
 }
