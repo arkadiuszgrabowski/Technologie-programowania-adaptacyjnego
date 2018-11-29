@@ -71,12 +71,19 @@ namespace Console
             {
                 case "deserialize":
                     {
-                        ViewModel.HierarchicalAreas = new ObservableCollection<TreeViewItem>();
-                        ViewModel.Click_Deserialize.Execute(null);
-                        ViewModel.PathVariable = ViewModel.Serializer.GetPath(); ;
-                        ConsoleView = new ConsoleTreeView(new ObservableCollection<ConsoleTreeViewItem>(ViewModel.HierarchicalAreas.Select(n => new ConsoleTreeViewItem(n, 0))));
-                        TreeViewView(String.Empty);
-                        break;
+                        if(ViewModel.Serializer.IsDeserializationPossible())
+                        {
+                            ViewModel.HierarchicalAreas = new ObservableCollection<TreeViewItem>();
+                            ViewModel.Click_Deserialize.Execute(null);
+                            ViewModel.PathVariable = ViewModel.Serializer.GetPath(); ;
+                            ConsoleView = new ConsoleTreeView(new ObservableCollection<ConsoleTreeViewItem>(ViewModel.HierarchicalAreas.Select(n => new ConsoleTreeViewItem(n, 0))));
+                            TreeViewView(String.Empty);
+                            break;
+                        } else
+                        {
+                            ChoseMenu("File does not exist!\n");
+                            break;
+                        }
                     }
                 case "dll":
                     {

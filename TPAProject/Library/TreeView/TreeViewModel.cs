@@ -122,20 +122,22 @@ namespace Library.TreeView
         }
         private void DeserializeTask()
         {
-            uiContext = SynchronizationContext.Current;
-            if(uiContext != null)
+            if(Serializer.IsDeserializationPossible())
             {
-                Task task = new Task(() => Deserialize());
-                task.Start();
+                uiContext = SynchronizationContext.Current;
+                if (uiContext != null)
+                {
+                    Task task = new Task(() => Deserialize());
+                    task.Start();
+                }
+                else
+                {
+                    Task task = new Task(() => Deserialize());
+                    task.Start();
+                    task.Wait();
+                    TreeViewLoaded();
+                }
             }
-            else
-            {
-                Task task = new Task(() => Deserialize());
-                task.Start();
-                task.Wait();
-                TreeViewLoaded();
-            }
-            
         }
     }
 }

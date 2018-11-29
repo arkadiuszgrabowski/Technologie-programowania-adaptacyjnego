@@ -39,5 +39,10 @@ namespace XMLSerializer
         {
             return path;
         }
+
+        public bool IsDeserializationPossible()
+        {
+            return File.Exists(path);
+        }
     }
 }
