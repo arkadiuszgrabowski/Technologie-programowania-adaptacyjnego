@@ -17,7 +17,8 @@ namespace UnitTests
         public static TreeViewModel viewModel { get; set; } = new TreeViewModel()
         {
             GetPath = new TestPath(),
-            Logger = new FileLogger("Logs.txt", "Console")
+            Logger = new FileLogger("Logs.txt", "Console"),
+            Serializer = new XMLSerializer.XMLSerializer("test.xml")
         };
         public class TestPath : IOpenDialogPath
         {
