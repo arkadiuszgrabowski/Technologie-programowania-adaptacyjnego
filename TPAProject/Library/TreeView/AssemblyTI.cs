@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Library.Reflection;
 
-namespace Library.TreeView.ReflectionTreeItems
+namespace Library.TreeView
 {
     public class AssemblyTI : TreeViewItem
     {

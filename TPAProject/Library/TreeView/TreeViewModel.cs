@@ -11,7 +11,6 @@ using Library.Reflection;
 using Library.Serialization;
 using Library.Singleton;
 using Library.Tracing;
-using Library.TreeView.ReflectionTreeItems;
 using Microsoft.Win32;
 
 namespace Library.TreeView

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Library.Reflection;
 using Library.Singleton;
 
-namespace Library.TreeView.ReflectionTreeItems
+namespace Library.TreeView
 {
     public class NamespaceTI : TreeViewItem
     {

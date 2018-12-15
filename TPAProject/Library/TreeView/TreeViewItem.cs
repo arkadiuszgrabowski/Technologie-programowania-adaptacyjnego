@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using Library.Reflection;
-using Library.TreeView.ReflectionTreeItems;
 
 namespace Library.TreeView
 {

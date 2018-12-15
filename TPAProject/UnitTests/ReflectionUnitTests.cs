@@ -6,7 +6,7 @@ using Library;
 using Library.Reflection;
 using Library.Tracing;
 using Library.TreeView;
-using Library.TreeView.ReflectionTreeItems;
+using Library.TreeView;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace UnitTests
