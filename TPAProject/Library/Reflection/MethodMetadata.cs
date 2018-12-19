@@ -37,7 +37,7 @@ namespace Library.Reflection
 
         private List<TypeMetadata> EmitGenericArguments(MethodBase method)
         {
-            return method.GetGenericArguments().Select(t => new TypeMetadata(t)).ToList();
+            return method.GetGenericArguments().Select(TypeMetadata.EmitReference).ToList();
         }
 
         public static List<MethodMetadata> EmitMethods(Type type)

@@ -105,10 +105,11 @@ namespace Library.Reflection
 
         public static TypeMetadata EmitReference(Type type)
         {
-            if (!type.IsGenericType)
-                return new TypeMetadata(type.Name, type.GetNamespace());
-
-            return new TypeMetadata(type.Name, type.GetNamespace(), EmitGenericArguments(type));
+            if (!TypeSingleton.Instance.ContainsKey(type.Name))
+            {
+                TypeSingleton.Instance.Add(type.Name, new TypeMetadata(type));
+            }
+            return TypeSingleton.Instance.Get(type.Name);
         }
         public static List<TypeMetadata> EmitGenericArguments(Type type)
         {
@@ -125,7 +126,7 @@ namespace Library.Reflection
         {
             if (!TypeSingleton.Instance.ContainsKey(type.Name))
             {
-                new TypeMetadata(type);
+                TypeMetadata.EmitType(type);
             }
         }
 
