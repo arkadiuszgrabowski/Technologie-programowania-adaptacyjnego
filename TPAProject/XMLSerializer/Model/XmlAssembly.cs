@@ -17,7 +17,7 @@ namespace XMLSerializer.Model
         [DataMember] public override string Name { get; set; }
 
 
-        [DataMember] public new List<XmlNamespace> Namespaces { get; set; }
+        [DataMember] public new List<XmlNamespace> NamespaceModels { get; set; }
 
     }
 }

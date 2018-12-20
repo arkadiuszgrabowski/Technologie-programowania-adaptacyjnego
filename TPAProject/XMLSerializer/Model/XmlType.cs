@@ -16,7 +16,7 @@ namespace XMLSerializer.Model
         [DataMember] public override bool IsExternal { get; set; }
         [DataMember] public override bool IsGeneric { get; set; }
 
-        [DataMember] public new XmlType BaseType { get; set; }
+        [DataMember] public new XmlType BaseT { get; set; }
         [DataMember] public new List<XmlType> GenericArguments { get; set; }
         [DataMember] public override TypeModifiers Modifiers { get; set; }
         [DataMember] public override TypeEnum Type { get; set; }

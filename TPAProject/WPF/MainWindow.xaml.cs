@@ -8,6 +8,7 @@ using System.Collections.Specialized;
 using System.IO;
 using System.Collections.Generic;
 using System.Configuration;
+using Data;
 
 namespace WPF
 {
@@ -45,6 +46,7 @@ namespace WPF
             CompositionContainer container = new CompositionContainer(catalog);
             ((TreeViewModel)DataContext).Serializer = container.GetExportedValue<ISerializer>();
             ((TreeViewModel)DataContext).Logger = container.GetExportedValue<ILogger>();
+            ((TreeViewModel)DataContext).AssemblyModel = container.GetExportedValue<BaseAssembly>();
         }
     }
 }

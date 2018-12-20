@@ -30,17 +30,19 @@ namespace XMLSerializer
 
             using (FileStream fileStream = new FileStream(path, FileMode.Create))
             {
-                dataContractSerializer.WriteObject(fileStream, _object);
+                dataContractSerializer.WriteObject(fileStream, assembly);
             }
         }
 
         public BaseAssembly Deserialize()
         {
+            XmlAssembly model;
             DataContractSerializer dataContractSerializer = new DataContractSerializer(typeof(XmlAssembly));
             using (FileStream fileStream = new FileStream(path, FileMode.Open))
             {
-                return (XmlAssembly)dataContractSerializer.ReadObject(fileStream);
+                model = (XmlAssembly)dataContractSerializer.ReadObject(fileStream);
             }
+            return model;
         }
 
         public string GetPath()
