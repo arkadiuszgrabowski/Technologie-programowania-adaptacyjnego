@@ -5,6 +5,12 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel.Composition;
+using System.ComponentModel.Composition.Hosting;
+using Contracts;
+using System.Collections.Specialized;
+using System.IO;
+using System.Configuration;
 
 namespace Console
 {
@@ -17,6 +23,7 @@ namespace Console
         public static ConsoleTreeView ConsoleView { get; set; }
         static void Main(string[] args)
         {
+            Compose();
             ChoseMenu(String.Empty);
         }
     
@@ -153,6 +160,23 @@ namespace Console
             System.Console.Write(value[2]);
             System.Console.ResetColor();
             System.Console.WriteLine(value[3]);
+        }
+
+        private static void Compose()
+        {
+            NameValueCollection plugins = (NameValueCollection)ConfigurationManager.GetSection("plugins");
+            string[] pluginsCatalogs = plugins.AllKeys;
+            List<DirectoryCatalog> directoryCatalogs = new List<DirectoryCatalog>();
+            foreach (string pluginsCatalog in pluginsCatalogs)
+            {
+                if (Directory.Exists(pluginsCatalog))
+                    directoryCatalogs.Add(new DirectoryCatalog(pluginsCatalog));
+            }
+
+            AggregateCatalog catalog = new AggregateCatalog(directoryCatalogs);
+            CompositionContainer container = new CompositionContainer(catalog);
+            ViewModel.Serializer = container.GetExportedValue<ISerializer>();
+            ViewModel.Logger = container.GetExportedValue<ILogger>();
         }
     }
 }

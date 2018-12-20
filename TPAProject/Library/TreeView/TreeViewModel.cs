@@ -25,7 +25,6 @@ namespace Library.TreeView
             Click_Browse = new RelayCommand(Browse);
             Click_Serialize = new RelayCommand(SerializeTask);
             Click_Deserialize = new RelayCommand(DeserializeTask);
-            Compose();
         }
 
         public ObservableCollection<TreeViewItem> HierarchicalAreas { get; set; }
@@ -141,13 +140,6 @@ namespace Library.TreeView
                 }
             }
         }
-        private void Compose()
-        {
-            //AssemblyCatalog assemblyCatalog = new AssemblyCatalog(Assembly.GetExecutingAssembly());
-            DirectoryCatalog catalog = new DirectoryCatalog(".", "*.dll");
-            CompositionContainer container = new CompositionContainer(catalog);
-            Serializer = container.GetExportedValue<ISerializer>();
-            Logger = container.GetExportedValue<ILogger>();
-        }
+        
     }
 }
