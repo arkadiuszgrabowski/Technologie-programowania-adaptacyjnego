@@ -13,7 +13,9 @@ namespace UnitTests
         {
             GetPath = new TestPath(),
             Logger = new FileLogger.FileLogger("Logs.txt", "Tests"),
-            Serializer = new XMLSerializer.XMLSerializer("test.xml")
+            Serializer = new XMLSerializer.XMLSerializer("test.xml"),
+            AssemblyModel = new XMLSerializer.Model.XmlAssembly()
+
         };
         public class TestPath : IOpenDialogPath
         {
@@ -27,7 +29,7 @@ namespace UnitTests
         {
             viewModel.Click_Browse.Execute(null);
             viewModel.Click_Open.Execute(null);
-            viewModel.Click_Serialize.Execute(null);
+            viewModel.Serialize();
             Assert.IsTrue(File.Exists(viewModel.Serializer.GetPath()));
         }
 
@@ -36,9 +38,9 @@ namespace UnitTests
         {
             viewModel.Click_Browse.Execute(null);
             viewModel.Click_Open.Execute(null);
-            viewModel.Click_Serialize.Execute(null);
+            viewModel.Serialize();
             Assert.IsTrue(File.Exists(viewModel.Serializer.GetPath()));
-            viewModel.Click_Deserialize.Execute(null);
+            viewModel.Deserialize();
             Assert.AreEqual(viewModel.assemblyMetadata.m_Namespaces.Count, 2);
             Assert.AreEqual(viewModel.assemblyMetadata.m_Namespaces[0].m_NamespaceName, "LibraryForTests");
             Assert.AreEqual(viewModel.assemblyMetadata.m_Namespaces[1].m_NamespaceName, "LibraryForTests.Recursion");

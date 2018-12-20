@@ -59,6 +59,10 @@
       <Project>{76265163-5445-4C56-B650-8A9EBD325376}</Project>
       <Name>Contracts</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Data\Data.csproj">
+      <Project>{32be8f62-4a3c-417c-8767-081752edb2c6}</Project>
+      <Name>Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Library\Library.csproj">
       <Project>{3beb4c89-677b-4cf6-8c86-73431d6921de}</Project>
       <Name>Library</Name>

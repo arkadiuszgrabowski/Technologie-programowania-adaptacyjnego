@@ -11,6 +11,7 @@ using Contracts;
 using System.Collections.Specialized;
 using System.IO;
 using System.Configuration;
+using Data;
 
 namespace Console
 {
@@ -177,6 +178,7 @@ namespace Console
             CompositionContainer container = new CompositionContainer(catalog);
             ViewModel.Serializer = container.GetExportedValue<ISerializer>();
             ViewModel.Logger = container.GetExportedValue<ILogger>();
+            ViewModel.AssemblyModel = container.GetExportedValue<BaseAssembly>();
         }
     }
 }

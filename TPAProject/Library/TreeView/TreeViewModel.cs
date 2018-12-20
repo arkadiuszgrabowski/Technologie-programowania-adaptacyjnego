@@ -82,7 +82,7 @@ namespace Library.TreeView
             Logger.Log("Loading path...", LevelEnum.Information);
             RaisePropertyChanged("PathVariable");
         }
-        private void Serialize()
+        public void Serialize()
         {
             Logger.Log("Serialize started...", LevelEnum.Information);
             try
@@ -101,7 +101,7 @@ namespace Library.TreeView
             Task task = new Task(() => Serialize());
             task.Start();
         }
-        private void Deserialize()
+        public void Deserialize()
         {
             Logger.Log("Deserialize started...", LevelEnum.Information);
             try
