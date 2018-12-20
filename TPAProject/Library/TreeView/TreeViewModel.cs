@@ -1,14 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
+using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using Contracts;
+using Data;
+using Library.Mappers;
 using Library.MVVM;
 using Library.Reflection;
 using Library.Singleton;
@@ -38,8 +42,12 @@ namespace Library.TreeView
         public AssemblyMetadata assemblyMetadata;
         public IOpenDialogPath GetPath { get; set; }
         public ILogger Logger { get; set; }
+
         [Import(typeof(ISerializer))]
         public ISerializer Serializer { get; set; }
+
+        [Import(typeof(BaseAssembly))]
+        public BaseAssembly AssemblyModel { get; set; }
 
         private void LoadDLL()
         {
@@ -79,7 +87,7 @@ namespace Library.TreeView
             Logger.Log("Serialize started...", LevelEnum.Information);
             try
             {
-                Serializer.Serialize(assemblyMetadata);
+                Serializer.Serialize(AssemblyMapper.MapDown(assemblyMetadata, AssemblyModel.GetType()));
                 Logger.Log("Serialize completed", LevelEnum.Success);
             }
             catch (Exception e)
@@ -98,8 +106,8 @@ namespace Library.TreeView
             Logger.Log("Deserialize started...", LevelEnum.Information);
             try
             {
-                assemblyMetadata = Serializer.Deserialize<AssemblyMetadata>();
-                foreach(NamespaceMetadata x in assemblyMetadata.m_Namespaces)
+                assemblyMetadata = AssemblyMapper.MapUp(Serializer.Deserialize());
+                foreach (NamespaceMetadata x in assemblyMetadata.m_Namespaces)
                 {
                     foreach (TypeMetadata y in x.m_Types)
                     {

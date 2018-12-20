@@ -43,6 +43,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\XmlAssembly.cs" />
+    <Compile Include="Model\XmlMethod.cs" />
+    <Compile Include="Model\XmlNamespace.cs" />
+    <Compile Include="Model\XmlParameter.cs" />
+    <Compile Include="Model\XmlProperty.cs" />
+    <Compile Include="Model\XmlType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="XMLSerializer.cs" />
   </ItemGroup>
@@ -50,6 +56,10 @@
     <ProjectReference Include="..\Contracts\Contracts.csproj">
       <Project>{76265163-5445-4c56-b650-8a9ebd325376}</Project>
       <Name>Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Data\Data.csproj">
+      <Project>{32BE8F62-4A3C-417C-8767-081752EDB2C6}</Project>
+      <Name>Data</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

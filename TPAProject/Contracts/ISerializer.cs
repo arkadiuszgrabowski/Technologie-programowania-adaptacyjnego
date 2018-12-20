@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Data;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,10 +10,9 @@ namespace Contracts
 {
     public interface ISerializer
     {
-        void Serialize<T>(T _object);
-        T Deserialize<T>();
+        void Serialize(BaseAssembly _object);
+        BaseAssembly Deserialize();
         string GetPath();
         bool IsDeserializationPossible();
-
     }
 }

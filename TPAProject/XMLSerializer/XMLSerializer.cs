@@ -7,6 +7,8 @@ using System.Runtime.Serialization;
 using System.IO;
 using Contracts;
 using System.ComponentModel.Composition;
+using Data;
+using XMLSerializer.Model;
 
 namespace XMLSerializer
 {
@@ -21,9 +23,10 @@ namespace XMLSerializer
         public XMLSerializer()
         {
         }
-        public void Serialize<T>(T _object)
+        public void Serialize(BaseAssembly _object)
         {
-            DataContractSerializer dataContractSerializer = new DataContractSerializer(typeof(T));
+            XmlAssembly assembly = (XmlAssembly)_object;
+            DataContractSerializer dataContractSerializer = new DataContractSerializer(typeof(XmlAssembly));
 
             using (FileStream fileStream = new FileStream(path, FileMode.Create))
             {
@@ -31,12 +34,12 @@ namespace XMLSerializer
             }
         }
 
-        public T Deserialize<T>()
+        public BaseAssembly Deserialize()
         {
-            DataContractSerializer dataContractSerializer = new DataContractSerializer(typeof(T));
+            DataContractSerializer dataContractSerializer = new DataContractSerializer(typeof(XmlAssembly));
             using (FileStream fileStream = new FileStream(path, FileMode.Open))
             {
-                return (T)dataContractSerializer.ReadObject(fileStream);
+                return (XmlAssembly)dataContractSerializer.ReadObject(fileStream);
             }
         }
 
