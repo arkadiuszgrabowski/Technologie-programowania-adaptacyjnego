@@ -8,9 +8,13 @@ using System.Threading.Tasks;
 
 namespace Library.Reflection
 {
-    [DataContract]
     public class AssemblyMetadata
     {
+
+        public AssemblyMetadata()
+        {
+
+        }
         public AssemblyMetadata(Assembly assembly)
         {
             m_Name = assembly.ManifestModule.Name;
@@ -19,10 +23,8 @@ namespace Library.Reflection
                 .Select(t => new NamespaceMetadata(t.Key, t.ToList())).ToList();
         }
 
-        [DataMember]
         public string m_Name { get; set; }
 
-        [DataMember]
         public List<NamespaceMetadata> m_Namespaces { get; set; }
     }
 }

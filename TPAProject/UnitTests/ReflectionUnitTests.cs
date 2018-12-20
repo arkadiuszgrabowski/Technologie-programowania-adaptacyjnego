@@ -5,7 +5,6 @@ using System.Reflection;
 using Library;
 using Library.Reflection;
 using Library.TreeView;
-using Library.TreeView;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace UnitTests

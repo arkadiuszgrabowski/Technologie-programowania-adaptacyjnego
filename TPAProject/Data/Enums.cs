@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Library.Reflection
+namespace Data
 {
     public enum AbstractEnum
     {

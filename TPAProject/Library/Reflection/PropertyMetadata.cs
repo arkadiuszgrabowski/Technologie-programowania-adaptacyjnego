@@ -8,14 +8,15 @@ using System.Threading.Tasks;
 
 namespace Library.Reflection
 {
-    [DataContract(IsReference = true)]
     public class PropertyMetadata
     {
-        [DataMember]
         public TypeMetadata Type { get; set; }
-        [DataMember]
         public string m_PropertyName { get; set; }
 
+        public PropertyMetadata()
+        {
+
+        }
         public PropertyMetadata(string name, TypeMetadata propertyType)
         {
             m_PropertyName = name;

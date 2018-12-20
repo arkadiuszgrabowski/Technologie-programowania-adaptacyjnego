@@ -1,4 +1,5 @@
-﻿using Library.Singleton;
+﻿using Data;
+using Library.Singleton;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,52 +10,34 @@ using System.Threading.Tasks;
 
 namespace Library.Reflection
 {
-    [DataContract(IsReference = true)]
     public class TypeMetadata
     {
-        [DataMember]
         public string TypeName { get; set; }
-        [DataMember]
         public string AssemblyName { get; set; }
-        [DataMember]
         public bool IsExternal { get; set; } = true;
-        [DataMember]
         public bool IsGeneric { get; set; }
-        [DataMember]
         public string NamespaceName { get; set; }
-        [DataMember]
         public TypeMetadata BaseType { get; set; }
-        [DataMember]
         public List<TypeMetadata> GenericArguments { get; set; }
-        [DataMember]
-        public Tuple<AccessLevel, SealedEnum, AbstractEnum, StaticEnum> Modifiers { get; set; }
-        [DataMember]
+        public TypeModifiers Modifiers { get; set; }
         public TypeEnum Type { get; set; }
-        [DataMember]
         public List<TypeMetadata> ImplementedInterfaces { get; set; }
-        [DataMember]
         public List<TypeMetadata> NestedTypes { get; set; }
-        [DataMember]
         public List<PropertyMetadata> Properties { get; set; }
-        [DataMember]
         public TypeMetadata DeclaringType { get; set; }
-        [DataMember]
         public List<MethodMetadata> Methods { get; set; }
-        [DataMember]
         public List<MethodMetadata> Constructors { get; set; }
-        [DataMember]
         public List<ParameterMetadata> Fields { get; set; }
 
         public TypeMetadata(Type type)
         {
             TypeName = type.Name;
-            //if (!TypeSingleton.Instance.ContainsKey(TypeName))
-            //{
-            //    TypeSingleton.Instance.Add(TypeName, this);
-            //}
             IsGeneric = type.IsGenericParameter;
             AssemblyName = type.AssemblyQualifiedName;
+        }
 
+        public TypeMetadata()
+        {
 
         }
 
@@ -179,7 +162,7 @@ namespace Library.Reflection
                    TypeEnum.Class;
         }
 
-        static Tuple<AccessLevel, SealedEnum, AbstractEnum, StaticEnum> EmitModifiers(Type type)
+        static TypeModifiers EmitModifiers(Type type)
         {
             AccessLevel _access = type.IsPublic || type.IsNestedPublic ? AccessLevel.Public :
                 type.IsNestedFamily ? AccessLevel.Protected :
@@ -194,9 +177,13 @@ namespace Library.Reflection
                 _abstract = type.IsAbstract ? AbstractEnum.Abstract : AbstractEnum.NotAbstract;
             }
 
-
-
-            return new Tuple<AccessLevel, SealedEnum, AbstractEnum, StaticEnum>(_access, _sealed, _abstract, _static);
+            return new TypeModifiers()
+            {
+                AbstractEnum = _abstract,
+                AccessLevel = _access,
+                SealedEnum = _sealed,
+                StaticEnum = _static
+            };
         }
 
         private static TypeMetadata EmitExtends(Type baseType)

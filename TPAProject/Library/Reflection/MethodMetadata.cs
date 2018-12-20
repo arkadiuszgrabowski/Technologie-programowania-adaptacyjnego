@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -9,22 +10,19 @@ using System.Threading.Tasks;
 
 namespace Library.Reflection
 {
-    [DataContract(IsReference = true)]
     public class MethodMetadata
     {
-        [DataMember]
         public List<TypeMetadata> GenericArguments { get; set; }
-        [DataMember]
-        public Tuple<AccessLevel, AbstractEnum, StaticEnum, VirtualEnum> Modifiers { get; set; }
-        [DataMember]
+        public MethodModifiers Modifiers { get; set; }
         public TypeMetadata ReturnType { get; set; }
-        [DataMember]
         public bool Extension { get; set; }
-        [DataMember]
         public List<ParameterMetadata> Parameters { get; set; }
-        [DataMember]
         public string m_MethodName { get; set; }
 
+        public MethodMetadata()
+        {
+
+        }
         public MethodMetadata(MethodBase method)
         {
             m_MethodName = method.Name;
@@ -65,7 +63,7 @@ namespace Library.Reflection
             return method.IsDefined(typeof(ExtensionAttribute), true);
         }
 
-        private static Tuple<AccessLevel, AbstractEnum, StaticEnum, VirtualEnum> EmitModifiers(MethodBase method)
+        private static MethodModifiers EmitModifiers(MethodBase method)
         {
             AccessLevel access = method.IsPublic ? AccessLevel.Public :
                 method.IsFamily ? AccessLevel.Protected :
@@ -77,7 +75,13 @@ namespace Library.Reflection
 
             VirtualEnum _virtual = method.IsVirtual ? VirtualEnum.Virtual : VirtualEnum.NotVirtual;
 
-            return new Tuple<AccessLevel, AbstractEnum, StaticEnum, VirtualEnum>(access, _abstract, _static, _virtual);
+            return new MethodModifiers()
+            {
+                AbstractEnum = _abstract,
+                StaticEnum = _static,
+                VirtualEnum = _virtual,
+                AccessLevel = access
+            };
         }
 
         public static List<MethodMetadata> EmitConstructors(Type type)
