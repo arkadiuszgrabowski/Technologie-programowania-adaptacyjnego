@@ -15,6 +15,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryForTests", "LibraryF
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XMLSerializer", "XMLSerializer\XMLSerializer.csproj", "{D0EC89F7-B40A-4C2F-9901-7922F8807623}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contracts", "Contracts\Contracts.csproj", "{76265163-5445-4C56-B650-8A9EBD325376}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileLogger", "FileLogger\FileLogger.csproj", "{3EFAB43F-87FA-4D0A-8772-D63C5D593123}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +49,14 @@ Global
 		{D0EC89F7-B40A-4C2F-9901-7922F8807623}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D0EC89F7-B40A-4C2F-9901-7922F8807623}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D0EC89F7-B40A-4C2F-9901-7922F8807623}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76265163-5445-4C56-B650-8A9EBD325376}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76265163-5445-4C56-B650-8A9EBD325376}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76265163-5445-4C56-B650-8A9EBD325376}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76265163-5445-4C56-B650-8A9EBD325376}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3EFAB43F-87FA-4D0A-8772-D63C5D593123}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3EFAB43F-87FA-4D0A-8772-D63C5D593123}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3EFAB43F-87FA-4D0A-8772-D63C5D593123}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3EFAB43F-87FA-4D0A-8772-D63C5D593123}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

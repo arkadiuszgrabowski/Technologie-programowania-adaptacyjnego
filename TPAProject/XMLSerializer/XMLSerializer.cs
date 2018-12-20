@@ -4,17 +4,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.Serialization;
-using Library.Serialization;
 using System.IO;
+using Contracts;
+using System.ComponentModel.Composition;
 
 namespace XMLSerializer
 {
+    [Export(typeof(ISerializer))]
     public class XMLSerializer : ISerializer
     {
-        public string path = @".";
+        public string path = @"model.xml";
         public XMLSerializer(string _path)
         {
             path = _path;
+        }
+        public XMLSerializer()
+        {
         }
         public void Serialize<T>(T _object)
         {

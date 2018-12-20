@@ -32,6 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
@@ -46,9 +47,9 @@
     <Compile Include="XMLSerializer.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Library\Library.csproj">
-      <Project>{3beb4c89-677b-4cf6-8c86-73431d6921de}</Project>
-      <Name>Library</Name>
+    <ProjectReference Include="..\Contracts\Contracts.csproj">
+      <Project>{76265163-5445-4c56-b650-8a9ebd325376}</Project>
+      <Name>Contracts</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

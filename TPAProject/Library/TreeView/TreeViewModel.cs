@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.ComponentModel.Composition;
+using System.ComponentModel.Composition.Hosting;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using Contracts;
 using Library.MVVM;
 using Library.Reflection;
-using Library.Serialization;
 using Library.Singleton;
-using Library.Tracing;
 using Microsoft.Win32;
 
 namespace Library.TreeView
@@ -24,6 +25,7 @@ namespace Library.TreeView
             Click_Browse = new RelayCommand(Browse);
             Click_Serialize = new RelayCommand(SerializeTask);
             Click_Deserialize = new RelayCommand(DeserializeTask);
+            Compose();
         }
 
         public ObservableCollection<TreeViewItem> HierarchicalAreas { get; set; }
@@ -37,6 +39,7 @@ namespace Library.TreeView
         public AssemblyMetadata assemblyMetadata;
         public IOpenDialogPath GetPath { get; set; }
         public ILogger Logger { get; set; }
+        [Import(typeof(ISerializer))]
         public ISerializer Serializer { get; set; }
 
         private void LoadDLL()
@@ -137,6 +140,14 @@ namespace Library.TreeView
                     TreeViewLoaded();
                 }
             }
+        }
+        private void Compose()
+        {
+            //AssemblyCatalog assemblyCatalog = new AssemblyCatalog(Assembly.GetExecutingAssembly());
+            DirectoryCatalog catalog = new DirectoryCatalog(".", "*.dll");
+            CompositionContainer container = new CompositionContainer(catalog);
+            Serializer = container.GetExportedValue<ISerializer>();
+            Logger = container.GetExportedValue<ILogger>();
         }
     }
 }

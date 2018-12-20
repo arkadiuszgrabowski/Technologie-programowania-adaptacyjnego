@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Library.Tracing
+namespace Contracts
 {
-    public enum LevelEnum
+    public interface ILogger
     {
-        Error, Warning, Success, Information
+        void Log(String message, LevelEnum level);
     }
 }

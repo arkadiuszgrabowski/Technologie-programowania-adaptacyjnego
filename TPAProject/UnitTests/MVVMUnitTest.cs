@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using Library;
-using Library.Tracing;
 using Library.TreeView;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -14,7 +13,7 @@ namespace UnitTests
         public static TreeViewModel viewModel { get; set; } = new TreeViewModel()
         {
             GetPath = new ReflectionUnitTests.TestPath(),
-            Logger = new FileLogger("Logs.txt", "Console")
+            Logger = new FileLogger.FileLogger("Logs.txt", "Console")
         };
         public class TestPath : IOpenDialogPath
         {

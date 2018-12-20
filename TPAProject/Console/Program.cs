@@ -1,5 +1,4 @@
-﻿using Library.Tracing;
-using Library.TreeView;
+﻿using Library.TreeView;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,9 +12,7 @@ namespace Console
     {
         public static TreeViewModel ViewModel { get; set; } = new TreeViewModel()
         {
-            GetPath = new ConsolePath(),
-            Logger = new FileLogger("Logs.txt", "Console"),
-            Serializer = new XMLSerializer.XMLSerializer(@"model.xml")
+            GetPath = new ConsolePath()
         };
         public static ConsoleTreeView ConsoleView { get; set; }
         static void Main(string[] args)

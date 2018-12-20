@@ -58,6 +58,14 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Contracts\Contracts.csproj">
+      <Project>{76265163-5445-4C56-B650-8A9EBD325376}</Project>
+      <Name>Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FileLogger\FileLogger.csproj">
+      <Project>{3efab43f-87fa-4d0a-8772-d63c5d593123}</Project>
+      <Name>FileLogger</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Library\Library.csproj">
       <Project>{3BEB4C89-677B-4CF6-8C86-73431D6921DE}</Project>
       <Name>Library</Name>

@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{3BEB4C89-677B-4CF6-8C86-73431D6921DE}</ProjectGuid>
+    <ProjectGuid>{3EFAB43F-87FA-4D0A-8772-D63C5D593123}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Library</RootNamespace>
-    <AssemblyName>Library</AssemblyName>
+    <RootNamespace>FileLogger</RootNamespace>
+    <AssemblyName>FileLogger</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -34,7 +34,6 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -43,29 +42,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IOpenDialogPath.cs" />
-    <Compile Include="MVVM\RelayCommand.cs" />
-    <Compile Include="MVVM\ViewModelBase.cs" />
+    <Compile Include="FileLogger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Reflection\AssemblyMetadata.cs" />
-    <Compile Include="Reflection\Enums.cs" />
-    <Compile Include="Reflection\ExtensionMethodsMetadata.cs" />
-    <Compile Include="Reflection\MethodMetadata.cs" />
-    <Compile Include="Reflection\NamespaceMetadata.cs" />
-    <Compile Include="Reflection\ParameterMetadata.cs" />
-    <Compile Include="Reflection\PropertyMetadata.cs" />
-    <Compile Include="Reflection\TypeMetadata.cs" />
-    <Compile Include="Singleton\TypeSingleton.cs" />
-    <Compile Include="TreeView\DelegateCommand.cs" />
-    <Compile Include="TreeView\AssemblyTI.cs" />
-    <Compile Include="TreeView\ItemTypeEnum.cs" />
-    <Compile Include="TreeView\MethodTI.cs" />
-    <Compile Include="TreeView\NamespaceTI.cs" />
-    <Compile Include="TreeView\ParameterTI.cs" />
-    <Compile Include="TreeView\PropertyTI.cs" />
-    <Compile Include="TreeView\TypeTI.cs" />
-    <Compile Include="TreeView\TreeViewItem.cs" />
-    <Compile Include="TreeView\TreeViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Contracts\Contracts.csproj">

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows;
-using Library.Tracing;
 using Library.TreeView;
 
 namespace WPF
@@ -15,12 +14,8 @@ namespace WPF
             base.OnInitialized(e);
             DataContext = new TreeViewModel()
             {
-                GetPath = new OpenDialogPath(),
-                Logger = new FileLogger("Logs.txt", "WPF"),
-                Serializer = new XMLSerializer.XMLSerializer(@"model.xml")
+                GetPath = new OpenDialogPath()
             };
-        // nie wiem czy o takie rozwiązanie chodziło
-        // aktualnie chyba inaczej sie nie da 
         }
         public MainWindow()
         {
