@@ -14,6 +14,7 @@ namespace XMLSerializer.Model
     public class XmlAssembly : BaseAssembly
     {
 
+        public XmlAssembly() { }
         [DataMember] public override string Name { get; set; }
 
 

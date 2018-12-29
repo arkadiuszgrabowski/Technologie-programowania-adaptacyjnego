@@ -15,7 +15,7 @@ namespace Library.Mappers
         public MethodMetadata MapUp(BaseMethod model)
         {
             MethodMetadata methodModel = new MethodMetadata();
-            methodModel.m_MethodName = model.Name;
+            methodModel.Name = model.Name;
             methodModel.Extension = model.Extension;
             Type type = model.GetType();
             PropertyInfo genericArgumentsProperty = type.GetProperty("GenericArguments",
@@ -64,7 +64,7 @@ namespace Library.Mappers
             PropertyInfo returnTypeProperty = methodModelType.GetProperty("ReturnType",
                 BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
 
-            nameProperty?.SetValue(methodModel, model.m_MethodName);
+            nameProperty?.SetValue(methodModel, model.Name);
             extensionProperty?.SetValue(methodModel, model.Extension);
             if (model.GenericArguments != null)
                 genericArgumentsProperty?.SetValue(methodModel,

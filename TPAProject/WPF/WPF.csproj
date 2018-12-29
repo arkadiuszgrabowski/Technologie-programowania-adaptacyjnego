@@ -99,14 +99,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Contracts\Contracts.csproj">
-      <Project>{76265163-5445-4C56-B650-8A9EBD325376}</Project>
-      <Name>Contracts</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Data\Data.csproj">
-      <Project>{32BE8F62-4A3C-417C-8767-081752EDB2C6}</Project>
-      <Name>Data</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Library\Library.csproj">
       <Project>{3beb4c89-677b-4cf6-8c86-73431d6921de}</Project>
       <Name>Library</Name>

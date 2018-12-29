@@ -14,12 +14,12 @@ namespace Library.Mappers
         {
             AssemblyMetadata assemblyModel = new AssemblyMetadata();
             Type type = model.GetType();
-            assemblyModel.m_Name = model.Name;
+            assemblyModel.Name = model.Name;
             PropertyInfo namespaceModelsProperty = type.GetProperty("NamespaceModels",
                 BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
             List<BaseNamespace> namespaceModels = (List<BaseNamespace>)Helper.ConvertList(typeof(BaseNamespace), (IList)namespaceModelsProperty?.GetValue(model));
             if (namespaceModels != null)
-                assemblyModel.m_Namespaces = namespaceModels.Select(n => new NamespaceMapper().MapUp(n)).ToList();
+                assemblyModel.NamespaceModels = namespaceModels.Select(n => new NamespaceMapper().MapUp(n)).ToList();
             return assemblyModel;
         }
 
@@ -29,11 +29,11 @@ namespace Library.Mappers
             PropertyInfo nameProperty = assemblyModelType.GetProperty("Name");
             PropertyInfo namespaceModelsProperty = assemblyModelType.GetProperty("NamespaceModels",
                 BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
-            nameProperty?.SetValue(assemblyModel, model.m_Name);
+            nameProperty?.SetValue(assemblyModel, model.Name);
             namespaceModelsProperty?.SetValue(
                 assemblyModel,
                 Helper.ConvertList(namespaceModelsProperty.PropertyType.GetGenericArguments()[0],
-                    model.m_Namespaces.Select(n => new NamespaceMapper().MapDown(n, namespaceModelsProperty.PropertyType.GetGenericArguments()[0])).ToList()));
+                    model.NamespaceModels.Select(n => new NamespaceMapper().MapDown(n, namespaceModelsProperty.PropertyType.GetGenericArguments()[0])).ToList()));
             return (BaseAssembly)assemblyModel;
         }
     }

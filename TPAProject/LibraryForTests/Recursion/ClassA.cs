@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LibraryForTests.Recursion
+namespace Tests.LibraryForTests.Recursion
 {
     public class ClassA
     {

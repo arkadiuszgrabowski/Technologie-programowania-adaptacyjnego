@@ -3,14 +3,12 @@ using System.Windows;
 using Library.TreeView;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
-using Contracts;
 using System.Collections.Specialized;
 using System.IO;
 using System.Collections.Generic;
 using System.Configuration;
-using Data;
 
-namespace WPF
+namespace Presentation.WPF
 {
     /// <summary>
     /// Logika interakcji dla klasy MainWindow.xaml
@@ -24,14 +22,14 @@ namespace WPF
             {
                 GetPath = new OpenDialogPath()
             };
-            Compose();
+            Compose(DataContext);
         }
         public MainWindow()
         {
             InitializeComponent();
         }
 
-        private void Compose()
+        private void Compose(object obj)
         {
             NameValueCollection plugins = (NameValueCollection)ConfigurationManager.GetSection("plugins");
             string[] pluginsCatalogs = plugins.AllKeys;
@@ -44,9 +42,7 @@ namespace WPF
 
             AggregateCatalog catalog = new AggregateCatalog(directoryCatalogs);
             CompositionContainer container = new CompositionContainer(catalog);
-            ((TreeViewModel)DataContext).Serializer = container.GetExportedValue<ISerializer>();
-            ((TreeViewModel)DataContext).Logger = container.GetExportedValue<ILogger>();
-            ((TreeViewModel)DataContext).AssemblyModel = container.GetExportedValue<BaseAssembly>();
+            container.ComposeParts(obj);
         }
     }
 }

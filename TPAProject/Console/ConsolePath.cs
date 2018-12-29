@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Console
+namespace Presentation.Console
 {
     class ConsolePath : IOpenDialogPath
     {

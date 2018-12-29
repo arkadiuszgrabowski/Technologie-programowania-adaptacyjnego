@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -8,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace Library.Reflection
 {
-    public class PropertyMetadata
+    public class PropertyMetadata : BaseProperty
     {
-        public TypeMetadata Type { get; set; }
-        public string m_PropertyName { get; set; }
+        public new TypeMetadata Type { get; set; }
+        public override string Name { get; set; }
 
         public PropertyMetadata()
         {
@@ -19,7 +20,7 @@ namespace Library.Reflection
         }
         public PropertyMetadata(string name, TypeMetadata propertyType)
         {
-            m_PropertyName = name;
+            Name = name;
             Type = propertyType;
         }
 

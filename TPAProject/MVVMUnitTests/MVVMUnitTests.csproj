@@ -5,11 +5,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{BAB2D7F0-040A-4150-82F1-E8201440B0BF}</ProjectGuid>
+    <ProjectGuid>{69D5BB05-EACE-43F8-A207-4A06953A6CC1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>UnitTests</RootNamespace>
-    <AssemblyName>UnitTests</AssemblyName>
+    <RootNamespace>MVVMUnitTests</RootNamespace>
+    <AssemblyName>MVVMUnitTests</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -49,10 +49,8 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ReflectionUnitTests.cs" />
+    <Compile Include="MVVMTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="MVVMUnitTest.cs" />
-    <Compile Include="SerializationTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -62,21 +60,13 @@
       <Project>{76265163-5445-4C56-B650-8A9EBD325376}</Project>
       <Name>Contracts</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Data\Data.csproj">
-      <Project>{32BE8F62-4A3C-417C-8767-081752EDB2C6}</Project>
-      <Name>Data</Name>
-    </ProjectReference>
     <ProjectReference Include="..\FileLogger\FileLogger.csproj">
-      <Project>{3efab43f-87fa-4d0a-8772-d63c5d593123}</Project>
+      <Project>{3EFAB43F-87FA-4D0A-8772-D63C5D593123}</Project>
       <Name>FileLogger</Name>
     </ProjectReference>
     <ProjectReference Include="..\Library\Library.csproj">
-      <Project>{3BEB4C89-677B-4CF6-8C86-73431D6921DE}</Project>
+      <Project>{3beb4c89-677b-4cf6-8c86-73431d6921de}</Project>
       <Name>Library</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\XMLSerializer\XMLSerializer.csproj">
-      <Project>{d0ec89f7-b40a-4c2f-9901-7922f8807623}</Project>
-      <Name>XMLSerializer</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

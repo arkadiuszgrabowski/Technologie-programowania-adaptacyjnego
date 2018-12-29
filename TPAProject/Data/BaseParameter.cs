@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace Data
 {
-    [DataContract(IsReference = true)]
+    
     public abstract class BaseParameter
     {
-        [DataMember] public virtual string Name { get; set; }
+        public virtual string Name { get; set; }
         public virtual BaseType Type { get; set; }
     }
 }

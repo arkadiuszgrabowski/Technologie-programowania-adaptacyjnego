@@ -13,7 +13,7 @@ namespace Library.TreeView
     {
         public ParameterMetadata ParameterMetadata { get; set; }
 
-        public ParameterTI(ParameterMetadata parameterMetadata, ItemTypeEnum type) : base(parameterMetadata.m_ParameterName, type)
+        public ParameterTI(ParameterMetadata parameterMetadata, ItemTypeEnum type) : base(parameterMetadata.Name, type)
         {
             ParameterMetadata = parameterMetadata;
         }
@@ -22,7 +22,7 @@ namespace Library.TreeView
         {
             if (ParameterMetadata.Type != null)
             {
-                children.Add(new TypeTI(TypeSingleton.Instance.Get(ParameterMetadata.Type.TypeName), ItemTypeEnum.Type));
+                children.Add(new TypeTI(TypeSingleton.Instance.Get(ParameterMetadata.Type.Name), ItemTypeEnum.Type));
             }
         }
     }

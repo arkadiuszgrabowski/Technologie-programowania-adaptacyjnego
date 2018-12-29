@@ -13,7 +13,7 @@ namespace Library.TreeView
     public class MethodTI : TreeViewItem
     {
         public MethodMetadata MethodMetadata { get; set; }
-        public MethodTI(MethodMetadata methodMetadata, ItemTypeEnum type) : base(GetModifiers(methodMetadata) + methodMetadata.m_MethodName, type)
+        public MethodTI(MethodMetadata methodMetadata, ItemTypeEnum type) : base(GetModifiers(methodMetadata) + methodMetadata.Name, type)
         {
             MethodMetadata = methodMetadata;
         }
@@ -33,7 +33,7 @@ namespace Library.TreeView
             {
                 foreach (TypeMetadata genericArgument in MethodMetadata.GenericArguments)
                 {
-                    children.Add(new TypeTI(TypeSingleton.Instance.Get(genericArgument.TypeName), ItemTypeEnum.GenericArgument));
+                    children.Add(new TypeTI(TypeSingleton.Instance.Get(genericArgument.Name), ItemTypeEnum.GenericArgument));
                 }
             }
             if (MethodMetadata.Parameters != null)
@@ -45,7 +45,7 @@ namespace Library.TreeView
             }
             if (MethodMetadata.ReturnType != null)
             {
-                children.Add(new TypeTI(TypeSingleton.Instance.Get(MethodMetadata.ReturnType.TypeName), ItemTypeEnum.ReturnType));
+                children.Add(new TypeTI(TypeSingleton.Instance.Get(MethodMetadata.ReturnType.Name), ItemTypeEnum.ReturnType));
             }
         }
     }

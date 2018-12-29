@@ -1,18 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using Library;
 using Library.TreeView;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace UnitTests
+namespace Tests.MVVMUnitTests
 {
     [TestClass]
-    public class UnitTest1
+    public class MVVMTests
     {
         public static TreeViewModel viewModel { get; set; } = new TreeViewModel()
         {
-            GetPath = new ReflectionUnitTests.TestPath(),
+            GetPath = new TestPath(),
             Logger = new FileLogger.FileLogger("Logs.txt", "Console")
         };
         public class TestPath : IOpenDialogPath

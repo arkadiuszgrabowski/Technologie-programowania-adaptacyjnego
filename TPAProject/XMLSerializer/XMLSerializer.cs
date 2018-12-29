@@ -9,6 +9,8 @@ using Contracts;
 using System.ComponentModel.Composition;
 using Data;
 using XMLSerializer.Model;
+using System.Xml.Serialization;
+using System.Diagnostics;
 
 namespace XMLSerializer
 {
@@ -23,9 +25,10 @@ namespace XMLSerializer
         public XMLSerializer()
         {
         }
-        public void Serialize(BaseAssembly _object)
+        public void Serialize<T>(T _object)
         {
-            XmlAssembly assembly = (XmlAssembly)_object;
+            XmlAssembly assembly = _object as XmlAssembly;
+            Debug.WriteLine(assembly.Name);
             DataContractSerializer dataContractSerializer = new DataContractSerializer(typeof(XmlAssembly));
 
             using (FileStream fileStream = new FileStream(path, FileMode.Create))
@@ -33,8 +36,8 @@ namespace XMLSerializer
                 dataContractSerializer.WriteObject(fileStream, assembly);
             }
         }
-
-        public BaseAssembly Deserialize()
+        // Deserializacja prawdopodobnie zwraca zły typ
+        public T Deserialize<T>()
         {
             XmlAssembly model;
             DataContractSerializer dataContractSerializer = new DataContractSerializer(typeof(XmlAssembly));
@@ -42,7 +45,7 @@ namespace XMLSerializer
             {
                 model = (XmlAssembly)dataContractSerializer.ReadObject(fileStream);
             }
-            return model;
+            return (T) Convert.ChangeType(model, typeof(T));
         }
 
         public string GetPath()

@@ -3,17 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
-using Contracts;
 using System.Collections.Specialized;
 using System.IO;
 using System.Configuration;
-using Data;
 
-namespace Console
+namespace Presentation.Console
 {
     class Program
     {
@@ -24,7 +20,7 @@ namespace Console
         public static ConsoleTreeView ConsoleView { get; set; }
         static void Main(string[] args)
         {
-            Compose();
+            Compose(ViewModel);
             ChoseMenu(String.Empty);
         }
     
@@ -163,7 +159,7 @@ namespace Console
             System.Console.WriteLine(value[3]);
         }
 
-        private static void Compose()
+        private static void Compose(object obj)
         {
             NameValueCollection plugins = (NameValueCollection)ConfigurationManager.GetSection("plugins");
             string[] pluginsCatalogs = plugins.AllKeys;
@@ -176,9 +172,7 @@ namespace Console
 
             AggregateCatalog catalog = new AggregateCatalog(directoryCatalogs);
             CompositionContainer container = new CompositionContainer(catalog);
-            ViewModel.Serializer = container.GetExportedValue<ISerializer>();
-            ViewModel.Logger = container.GetExportedValue<ILogger>();
-            ViewModel.AssemblyModel = container.GetExportedValue<BaseAssembly>();
+            container.ComposeParts(obj);
         }
     }
 }

@@ -14,7 +14,7 @@ namespace Library.TreeView
     {
         public TypeMetadata TypeData { get; set; }
 
-        public TypeTI(TypeMetadata typeMetadata, ItemTypeEnum type) : base(GetModifiers(typeMetadata) + typeMetadata.TypeName, type)
+        public TypeTI(TypeMetadata typeMetadata, ItemTypeEnum type) : base(GetModifiers(typeMetadata) + typeMetadata.Name, type)
         {
             TypeData = typeMetadata;
         }
@@ -35,19 +35,19 @@ namespace Library.TreeView
 
         protected override void BuildMyself(ObservableCollection<TreeViewItem> children)
         {
-            if (TypeData.BaseType != null)
+            if (TypeData.BaseT != null)
             {
-                children.Add(new TypeTI(TypeSingleton.Instance.Get(TypeData.BaseType.TypeName), ItemTypeEnum.BaseType));
+                children.Add(new TypeTI(TypeSingleton.Instance.Get(TypeData.BaseT.Name), ItemTypeEnum.BaseType));
             }
             if (TypeData.DeclaringType != null)
             {
-                children.Add(new TypeTI(TypeSingleton.Instance.Get(TypeData.DeclaringType.TypeName), ItemTypeEnum.Type));
+                children.Add(new TypeTI(TypeSingleton.Instance.Get(TypeData.DeclaringType.Name), ItemTypeEnum.Type));
             }
             if (TypeData.Properties != null)
             {
                 foreach (PropertyMetadata propertyMetadata in TypeData.Properties)
                 {
-                    children.Add(new PropertyTI(propertyMetadata, GetModifiers(propertyMetadata.Type) + propertyMetadata.Type.TypeName + " " + propertyMetadata.m_PropertyName));
+                    children.Add(new PropertyTI(propertyMetadata, GetModifiers(propertyMetadata.Type) + propertyMetadata.Type.Name + " " + propertyMetadata.Name));
                 }
             }
             if (TypeData.Fields != null)
@@ -61,14 +61,14 @@ namespace Library.TreeView
             {
                 foreach (TypeMetadata typeMetadata in TypeData.GenericArguments)
                 {
-                    children.Add(new TypeTI(TypeSingleton.Instance.Get(typeMetadata.TypeName), ItemTypeEnum.GenericArgument));
+                    children.Add(new TypeTI(TypeSingleton.Instance.Get(typeMetadata.Name), ItemTypeEnum.GenericArgument));
                 }
             }
             if (TypeData.ImplementedInterfaces != null)
             {
                 foreach (TypeMetadata typeMetadata in TypeData.ImplementedInterfaces)
                 {
-                    children.Add(new TypeTI(TypeSingleton.Instance.Get(typeMetadata.TypeName), ItemTypeEnum.InmplementedInterface));
+                    children.Add(new TypeTI(TypeSingleton.Instance.Get(typeMetadata.Name), ItemTypeEnum.InmplementedInterface));
                 }
             }
             if (TypeData.NestedTypes != null)
@@ -78,7 +78,7 @@ namespace Library.TreeView
                     ItemTypeEnum type = typeMetadata.Type == TypeEnum.Class ? ItemTypeEnum.NestedClass :
                         typeMetadata.Type == TypeEnum.Struct ? ItemTypeEnum.NestedStructure :
                         typeMetadata.Type == TypeEnum.Enum ? ItemTypeEnum.NestedEnum : ItemTypeEnum.NestedType;
-                    children.Add(new TypeTI(TypeSingleton.Instance.Get(typeMetadata.TypeName), type));
+                    children.Add(new TypeTI(TypeSingleton.Instance.Get(typeMetadata.Name), type));
                 }
             }
             if (TypeData.Methods != null)

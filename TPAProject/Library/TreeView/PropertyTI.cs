@@ -20,7 +20,7 @@ namespace Library.TreeView
         {
             if (PropertyMetadata.Type != null)
             {
-                children.Add(new TypeTI(TypeSingleton.Instance.Get(PropertyMetadata.Type.TypeName), ItemTypeEnum.Type));
+                children.Add(new TypeTI(TypeSingleton.Instance.Get(PropertyMetadata.Type.Name), ItemTypeEnum.Type));
             }
         }
     }
