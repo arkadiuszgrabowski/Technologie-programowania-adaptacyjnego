@@ -143,6 +143,11 @@ namespace Library.TreeView
                 }
             }
         }
+
+        public bool DeserializationPossibility()
+        {
+            return Serializer.IsDeserializationPossible();
+        }
         
     }
 }

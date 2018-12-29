@@ -72,11 +72,11 @@ namespace Presentation.Console
             {
                 case "deserialize":
                     {
-                        if(ViewModel.Serializer.IsDeserializationPossible())
+                        if(ViewModel.DeserializationPossibility())
                         {
                             ViewModel.HierarchicalAreas = new ObservableCollection<TreeViewItem>();
                             ViewModel.Click_Deserialize.Execute(null);
-                            ViewModel.PathVariable = ViewModel.Serializer.GetPath(); ;
+                            ViewModel.PathVariable = ViewModel.GetPath.GetPath();
                             ConsoleView = new ConsoleTreeView(new ObservableCollection<ConsoleTreeViewItem>(ViewModel.HierarchicalAreas.Select(n => new ConsoleTreeViewItem(n, 0))));
                             TreeViewView(String.Empty);
                             break;
