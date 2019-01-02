@@ -101,7 +101,7 @@ namespace Library.TreeView
             Logger.Log("Deserialize started...", LevelEnum.Information);
             try
             {
-                assemblyMetadata = Serializer.Deserialize<AssemblyMetadata>();
+                assemblyMetadata = AssemblyMapper.MapUp(Serializer.Deserialize<AssemblyMetadata>());
                 foreach (NamespaceMetadata x in assemblyMetadata.NamespaceModels)
                 {
                     foreach (TypeMetadata y in x.Types)
