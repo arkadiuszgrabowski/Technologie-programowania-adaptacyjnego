@@ -27,7 +27,7 @@ namespace XMLSerializer
             {
                 PreserveReferencesHandling = PreserveReferencesHandling.Objects
             });
-            XDocument node = JsonConvert.DeserializeXNode(name, "Root",true);
+            XDocument node = JsonConvert.DeserializeXNode(name, "Root", true);
 
             node.Save(path);
         }
@@ -36,12 +36,12 @@ namespace XMLSerializer
         {
             XmlAssembly model;
             XDocument doc = XDocument.Load(path);
-                string json = JsonConvert.SerializeXNode(doc, Newtonsoft.Json.Formatting.Indented,true);
-                json = json.Remove(0, 58);
-                model = JsonConvert.DeserializeObject<XmlAssembly>(json, new JsonSerializerSettings
-                {
-                    PreserveReferencesHandling = PreserveReferencesHandling.None
-                });
+            string json = JsonConvert.SerializeXNode(doc, Newtonsoft.Json.Formatting.Indented, true);
+            json = json.Remove(0, 58);
+            model = JsonConvert.DeserializeObject<XmlAssembly>(json, new JsonSerializerSettings
+            {
+                PreserveReferencesHandling = PreserveReferencesHandling.Objects
+            });
             return model;
         }
 
