@@ -27,27 +27,21 @@ namespace XMLSerializer
             {
                 PreserveReferencesHandling = PreserveReferencesHandling.Objects
             });
-            XNode node = JsonConvert.DeserializeXNode(name, "Root");
-            using (StreamWriter file = new StreamWriter(path, false))
-            {
-                file.Write(node);
-            }
+            XDocument node = JsonConvert.DeserializeXNode(name, "Root",true);
+
+            node.Save(path);
         }
 
         public BaseAssembly Deserialize()
         {
             XmlAssembly model;
-            using (StreamReader file = new StreamReader(path, false))
-            {
-                string reader = file.ReadToEnd();
-                XmlDocument doc = new XmlDocument();
-                doc.LoadXml(reader);
-                string json = JsonConvert.SerializeXmlNode(doc, Newtonsoft.Json.Formatting.Indented);
+            XDocument doc = XDocument.Load(path);
+                string json = JsonConvert.SerializeXNode(doc, Newtonsoft.Json.Formatting.Indented,true);
+                json = json.Remove(0, 58);
                 model = JsonConvert.DeserializeObject<XmlAssembly>(json, new JsonSerializerSettings
                 {
-                    PreserveReferencesHandling = PreserveReferencesHandling.Objects
+                    PreserveReferencesHandling = PreserveReferencesHandling.None
                 });
-            }
             return model;
         }
 
