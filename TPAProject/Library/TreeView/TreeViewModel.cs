@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
-using System.Linq;
+using System.IO;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
 using Contracts;
 using Data;
@@ -16,7 +14,6 @@ using Library.Mappers;
 using Library.MVVM;
 using Library.Reflection;
 using Library.Singleton;
-using Microsoft.Win32;
 
 namespace Library.TreeView
 {
@@ -41,13 +38,13 @@ namespace Library.TreeView
         public AssemblyTI assemblyTi;
         public AssemblyMetadata assemblyMetadata;
         public IOpenDialogPath GetPath { get; set; }
+        [Import(typeof(ILogger))]
         public ILogger Logger { get; set; }
-
         [Import(typeof(ISerializer))]
         public ISerializer Serializer { get; set; }
-
         [Import(typeof(BaseAssembly))]
-        public BaseAssembly AssemblyModel { get; set; }
+        public BaseAssembly InAssembly { get; set; }
+        public object ConfigurationManager { get; private set; }
 
         private void LoadDLL()
         {
@@ -87,7 +84,7 @@ namespace Library.TreeView
             Logger.Log("Serialize started...", LevelEnum.Information);
             try
             {
-                Serializer.Serialize(AssemblyMapper.MapDown(assemblyMetadata, AssemblyModel.GetType()));
+                Serializer.Serialize(AssemblyMapper.MapDown(assemblyMetadata, InAssembly.GetType()));
                 Logger.Log("Serialize completed", LevelEnum.Success);
             }
             catch (Exception e)
@@ -107,13 +104,13 @@ namespace Library.TreeView
             try
             {
                 assemblyMetadata = AssemblyMapper.MapUp(Serializer.Deserialize());
-                foreach (NamespaceMetadata x in assemblyMetadata.m_Namespaces)
+                foreach (NamespaceMetadata x in assemblyMetadata.NamespaceModels)
                 {
-                    foreach (TypeMetadata y in x.m_Types)
+                    foreach (TypeMetadata y in x.Types)
                     {
-                        if (!TypeSingleton.Instance.ContainsKey(y.TypeName))
+                        if (!TypeSingleton.Instance.ContainsKey(y.Name))
                         {
-                            TypeSingleton.Instance.Add(y.TypeName, y);
+                            TypeSingleton.Instance.Add(y.Name, y);
                         }
                     }
                 }
@@ -148,6 +145,25 @@ namespace Library.TreeView
                 }
             }
         }
-        
+
+        public bool DeserializationPossibility()
+        {
+            return Serializer.IsDeserializationPossible();
+        }
+
+        public void Compose(string[] pluginsCatalogs)
+        {
+            List<DirectoryCatalog> directoryCatalogs = new List<DirectoryCatalog>();
+            foreach (string pluginsCatalog in pluginsCatalogs)
+            {
+                if (Directory.Exists(pluginsCatalog))
+                    directoryCatalogs.Add(new DirectoryCatalog(pluginsCatalog));
+            }
+
+            AggregateCatalog catalog = new AggregateCatalog(directoryCatalogs);
+            CompositionContainer container = new CompositionContainer(catalog);
+            container.ComposeParts(this);
+        }
+
     }
 }

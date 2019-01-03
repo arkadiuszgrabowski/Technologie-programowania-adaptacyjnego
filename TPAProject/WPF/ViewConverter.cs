@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 
-namespace WPF
+namespace Presentation.WPF
 {
     [ValueConversion(typeof(ItemTypeEnum), typeof(string))]
     class ViewConverter : IValueConverter

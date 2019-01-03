@@ -29,18 +29,18 @@ namespace Library.Mappers
         {
             Type typeModelType = typModel.GetType();
 
-            typeModelType.GetProperty("Name")?.SetValue(typModel, model.TypeName);
+            typeModelType.GetProperty("Name")?.SetValue(typModel, model.Name);
             typeModelType.GetProperty("IsExternal")?.SetValue(typModel, model.IsExternal);
             typeModelType.GetProperty("IsGeneric")?.SetValue(typModel, model.IsGeneric);
             typeModelType.GetProperty("Type")?.SetValue(typModel, model.Type);
             typeModelType.GetProperty("AssemblyName")?.SetValue(typModel, model.AssemblyName);
             typeModelType.GetProperty("Modifiers")?.SetValue(typModel, model.Modifiers ?? new TypeModifiers());
 
-            if (model.BaseType != null)
+            if (model.BaseT != null)
             {
                 typeModelType.GetProperty("BaseType",
                     BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly)
-                    ?.SetValue(typModel, typeModelType.Cast(EmitBaseType(model.BaseType, typeModelType)));
+                    ?.SetValue(typModel, typeModelType.Cast(EmitBaseType(model.BaseT, typeModelType)));
             }
 
             if (model.DeclaringType != null)
@@ -125,7 +125,7 @@ namespace Library.Mappers
 
         private void FillType(BaseType model, TypeMetadata typeModel)
         {
-            typeModel.TypeName = model.Name;
+            typeModel.Name = model.Name;
             typeModel.IsExternal = model.IsExternal;
             typeModel.IsGeneric = model.IsGeneric;
             typeModel.Type = model.Type;
@@ -136,7 +136,7 @@ namespace Library.Mappers
             PropertyInfo baseTypeProperty = type.GetProperty("BaseType",
                 BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
             BaseType baseType = (BaseType)baseTypeProperty?.GetValue(model);
-            typeModel.BaseType = EmitType(baseType);
+            typeModel.BaseT = EmitType(baseType);
 
             PropertyInfo declaringTypeProperty = type.GetProperty("DeclaringType",
                 BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
@@ -238,12 +238,12 @@ namespace Library.Mappers
             object typeModel = Activator.CreateInstance(typeModelType);
             if (model == null)
                 return null;
-            if (!BaseTypes.ContainsKey(model.TypeName))
+            if (!BaseTypes.ContainsKey(model.Name))
             {
-                BaseTypes.Add(model.TypeName, (BaseType)typeModel);
+                BaseTypes.Add(model.Name, (BaseType)typeModel);
                 FillBaseType(model, (BaseType)typeModel);
             }
-            return BaseTypes[model.TypeName];
+            return BaseTypes[model.Name];
         }
     }
 }

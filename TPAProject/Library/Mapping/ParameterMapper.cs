@@ -14,7 +14,7 @@ namespace Library.Mappers
         public ParameterMetadata MapUp(BaseParameter model)
         {
             ParameterMetadata parameterModel = new ParameterMetadata();
-            parameterModel.m_ParameterName = model.Name;
+            parameterModel.Name = model.Name;
             Type type = model.GetType();
             PropertyInfo typeProperty = type.GetProperty("Type",
                 BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
@@ -30,7 +30,7 @@ namespace Library.Mappers
             PropertyInfo nameProperty = parameterModelType.GetProperty("Name");
             PropertyInfo typeProperty = parameterModelType.GetProperty("Type",
                 BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
-            nameProperty?.SetValue(parameterModel, model.m_ParameterName);
+            nameProperty?.SetValue(parameterModel, model.Name);
             if (model.Type != null)
                 typeProperty?.SetValue(parameterModel,
                     typeProperty.PropertyType.Cast(TypeMapper.EmitBaseType(model.Type, typeProperty.PropertyType)));

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Library.Reflection
 {
-    public class AssemblyMetadata
+    public class AssemblyMetadata : BaseAssembly
     {
 
         public AssemblyMetadata()
@@ -17,14 +18,14 @@ namespace Library.Reflection
         }
         public AssemblyMetadata(Assembly assembly)
         {
-            m_Name = assembly.ManifestModule.Name;
+            Name = assembly.ManifestModule.Name;
             Type[] types = assembly.GetTypes();
-            m_Namespaces = types.Where(t => t.IsVisible).GroupBy(t => t.Namespace).OrderBy(t => t.Key)
+            NamespaceModels = types.Where(t => t.IsVisible).GroupBy(t => t.Namespace).OrderBy(t => t.Key)
                 .Select(t => new NamespaceMetadata(t.Key, t.ToList())).ToList();
         }
 
-        public string m_Name { get; set; }
+        public override string Name { get; set; }
 
-        public List<NamespaceMetadata> m_Namespaces { get; set; }
+        public new List<NamespaceMetadata> NamespaceModels { get; set; }
     }
 }

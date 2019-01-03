@@ -10,14 +10,14 @@ using System.Threading.Tasks;
 
 namespace Library.Reflection
 {
-    public class MethodMetadata
+    public class MethodMetadata : BaseMethod
     {
-        public List<TypeMetadata> GenericArguments { get; set; }
-        public MethodModifiers Modifiers { get; set; }
-        public TypeMetadata ReturnType { get; set; }
-        public bool Extension { get; set; }
-        public List<ParameterMetadata> Parameters { get; set; }
-        public string m_MethodName { get; set; }
+        public new List<TypeMetadata> GenericArguments { get; set; }
+        public override MethodModifiers Modifiers { get; set; }
+        public new TypeMetadata ReturnType { get; set; }
+        public override bool Extension { get; set; }
+        public new List<ParameterMetadata> Parameters { get; set; }
+        public override string Name { get; set; }
 
         public MethodMetadata()
         {
@@ -25,7 +25,7 @@ namespace Library.Reflection
         }
         public MethodMetadata(MethodBase method)
         {
-            m_MethodName = method.Name;
+            Name = method.Name;
             GenericArguments = !method.IsGenericMethodDefinition ? null : EmitGenericArguments(method);
             ReturnType = EmitReturnType(method);
             Parameters = EmitParameters(method);

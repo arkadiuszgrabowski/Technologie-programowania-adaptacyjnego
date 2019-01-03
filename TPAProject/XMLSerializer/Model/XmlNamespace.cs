@@ -8,11 +8,10 @@ using System.Threading.Tasks;
 
 namespace XMLSerializer.Model
 {
-    [DataContract(IsReference = true)]
     public class XmlNamespace : BaseNamespace
     {
-        [DataMember] public override string Name { get; set; }
+        public override string Name { get; set; }
 
-        [DataMember] public new List<XmlType> Types { get; set; }
+        public new List<XmlType> Types { get; set; }
     }
 }

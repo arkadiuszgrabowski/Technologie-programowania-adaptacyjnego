@@ -12,9 +12,9 @@ namespace Library.TreeView
     {
         public List<NamespaceMetadata> NamespaceList { get; set; }
   
-        public AssemblyTI(AssemblyMetadata assembly) : base(assembly.m_Name, ItemTypeEnum.Assembly)
+        public AssemblyTI(AssemblyMetadata assembly) : base(assembly.Name, ItemTypeEnum.Assembly)
         {
-            NamespaceList = assembly.m_Namespaces;
+            NamespaceList = assembly.NamespaceModels;
         }
 
         protected override void BuildMyself(ObservableCollection<TreeViewItem> children)

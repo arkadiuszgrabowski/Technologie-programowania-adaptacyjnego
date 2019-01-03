@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -7,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace Library.Reflection
 {
-    public class ParameterMetadata
+    public class ParameterMetadata : BaseParameter
     {
-        public TypeMetadata Type { get; set; }
-        public string m_ParameterName { get; set; }
+        public new TypeMetadata Type { get; set; }
+        public override string Name { get; set; }
 
         public ParameterMetadata(string name, TypeMetadata typeModel)
         {
-            m_ParameterName = name;
+            Name = name;
             Type = typeModel;
         }
 

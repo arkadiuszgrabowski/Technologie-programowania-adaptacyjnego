@@ -10,28 +10,28 @@ using System.Threading.Tasks;
 
 namespace Library.Reflection
 {
-    public class TypeMetadata
+    public class TypeMetadata : BaseType
     {
-        public string TypeName { get; set; }
-        public string AssemblyName { get; set; }
-        public bool IsExternal { get; set; } = true;
-        public bool IsGeneric { get; set; }
-        public string NamespaceName { get; set; }
-        public TypeMetadata BaseType { get; set; }
-        public List<TypeMetadata> GenericArguments { get; set; }
-        public TypeModifiers Modifiers { get; set; }
-        public TypeEnum Type { get; set; }
-        public List<TypeMetadata> ImplementedInterfaces { get; set; }
-        public List<TypeMetadata> NestedTypes { get; set; }
-        public List<PropertyMetadata> Properties { get; set; }
-        public TypeMetadata DeclaringType { get; set; }
-        public List<MethodMetadata> Methods { get; set; }
-        public List<MethodMetadata> Constructors { get; set; }
-        public List<ParameterMetadata> Fields { get; set; }
+        public override string Name { get; set; }
+        public override string AssemblyName { get; set; }
+        public override bool IsExternal { get; set; } = true;
+        public override bool IsGeneric { get; set; }
+        public override string NamespaceName { get; set; }
+        public new TypeMetadata BaseT { get; set; }
+        public new List<TypeMetadata> GenericArguments { get; set; }
+        public override TypeModifiers Modifiers { get; set; }
+        public override TypeEnum Type { get; set; }
+        public new List<TypeMetadata> ImplementedInterfaces { get; set; }
+        public new List<TypeMetadata> NestedTypes { get; set; }
+        public new List<PropertyMetadata> Properties { get; set; }
+        public new TypeMetadata DeclaringType { get; set; }
+        public new List<MethodMetadata> Methods { get; set; }
+        public new List<MethodMetadata> Constructors { get; set; }
+        public new List<ParameterMetadata> Fields { get; set; }
 
         public TypeMetadata(Type type)
         {
-            TypeName = type.Name;
+            Name = type.Name;
             IsGeneric = type.IsGenericParameter;
             AssemblyName = type.AssemblyQualifiedName;
         }
@@ -44,7 +44,7 @@ namespace Library.Reflection
         private void Analyze(Type type)
         {
             Type = GetTypeEnum(type);
-            BaseType = EmitExtends(type.BaseType);
+            BaseT = EmitExtends(type.BaseType);
             Modifiers = EmitModifiers(type);
 
             DeclaringType = EmitDeclaringType(type.DeclaringType);
@@ -61,7 +61,7 @@ namespace Library.Reflection
 
         private TypeMetadata(string typeName, string namespaceName)
         {
-            this.TypeName = typeName;
+            this.Name = typeName;
             this.NamespaceName = namespaceName;
         }
 

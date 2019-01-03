@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Runtime.Serialization;
-using System.IO;
+﻿using System.IO;
 using Contracts;
 using System.ComponentModel.Composition;
 using Data;
 using XMLSerializer.Model;
+using Newtonsoft.Json;
+using System.Xml.Linq;
+using System.Xml;
 
 namespace XMLSerializer
 {
@@ -25,23 +22,26 @@ namespace XMLSerializer
         }
         public void Serialize(BaseAssembly _object)
         {
-            XmlAssembly assembly = (XmlAssembly)_object;
-            DataContractSerializer dataContractSerializer = new DataContractSerializer(typeof(XmlAssembly));
-
-            using (FileStream fileStream = new FileStream(path, FileMode.Create))
+            XmlAssembly assembly = _object as XmlAssembly;
+            string name = JsonConvert.SerializeObject(assembly, Newtonsoft.Json.Formatting.Indented, new JsonSerializerSettings
             {
-                dataContractSerializer.WriteObject(fileStream, assembly);
-            }
+                PreserveReferencesHandling = PreserveReferencesHandling.Objects
+            });
+            XDocument node = JsonConvert.DeserializeXNode(name, "Root", true);
+
+            node.Save(path);
         }
 
         public BaseAssembly Deserialize()
         {
             XmlAssembly model;
-            DataContractSerializer dataContractSerializer = new DataContractSerializer(typeof(XmlAssembly));
-            using (FileStream fileStream = new FileStream(path, FileMode.Open))
+            XDocument doc = XDocument.Load(path);
+            string json = JsonConvert.SerializeXNode(doc, Newtonsoft.Json.Formatting.Indented, true);
+            json = json.Remove(0, 58);
+            model = JsonConvert.DeserializeObject<XmlAssembly>(json, new JsonSerializerSettings
             {
-                model = (XmlAssembly)dataContractSerializer.ReadObject(fileStream);
-            }
+                PreserveReferencesHandling = PreserveReferencesHandling.Objects
+            });
             return model;
         }
 

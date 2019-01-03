@@ -9,15 +9,15 @@ using System.Threading.Tasks;
 
 namespace XMLSerializer.Model
 {
-    [DataContract(IsReference = true)]
     [Export(typeof(BaseAssembly))]
     public class XmlAssembly : BaseAssembly
     {
 
-        [DataMember] public override string Name { get; set; }
+        public XmlAssembly() { }
+        public override string Name { get; set; }
 
 
-        [DataMember] public new List<XmlNamespace> NamespaceModels { get; set; }
+        public new List<XmlNamespace> NamespaceModels { get; set; }
 
     }
 }

@@ -3,17 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
-using Contracts;
 using System.Collections.Specialized;
 using System.IO;
 using System.Configuration;
-using Data;
 
-namespace Console
+namespace Presentation.Console
 {
     class Program
     {
@@ -24,7 +20,9 @@ namespace Console
         public static ConsoleTreeView ConsoleView { get; set; }
         static void Main(string[] args)
         {
-            Compose();
+            NameValueCollection plugins = (NameValueCollection)ConfigurationManager.GetSection("plugins");
+            string[] pluginsCatalogs = plugins.AllKeys;
+            ViewModel.Compose(pluginsCatalogs);
             ChoseMenu(String.Empty);
         }
     
@@ -76,11 +74,11 @@ namespace Console
             {
                 case "deserialize":
                     {
-                        if(ViewModel.Serializer.IsDeserializationPossible())
+                        if(ViewModel.DeserializationPossibility())
                         {
                             ViewModel.HierarchicalAreas = new ObservableCollection<TreeViewItem>();
                             ViewModel.Click_Deserialize.Execute(null);
-                            ViewModel.PathVariable = ViewModel.Serializer.GetPath(); ;
+                            ViewModel.PathVariable = "Deserialized";
                             ConsoleView = new ConsoleTreeView(new ObservableCollection<ConsoleTreeViewItem>(ViewModel.HierarchicalAreas.Select(n => new ConsoleTreeViewItem(n, 0))));
                             TreeViewView(String.Empty);
                             break;
@@ -161,24 +159,6 @@ namespace Console
             System.Console.Write(value[2]);
             System.Console.ResetColor();
             System.Console.WriteLine(value[3]);
-        }
-
-        private static void Compose()
-        {
-            NameValueCollection plugins = (NameValueCollection)ConfigurationManager.GetSection("plugins");
-            string[] pluginsCatalogs = plugins.AllKeys;
-            List<DirectoryCatalog> directoryCatalogs = new List<DirectoryCatalog>();
-            foreach (string pluginsCatalog in pluginsCatalogs)
-            {
-                if (Directory.Exists(pluginsCatalog))
-                    directoryCatalogs.Add(new DirectoryCatalog(pluginsCatalog));
-            }
-
-            AggregateCatalog catalog = new AggregateCatalog(directoryCatalogs);
-            CompositionContainer container = new CompositionContainer(catalog);
-            ViewModel.Serializer = container.GetExportedValue<ISerializer>();
-            ViewModel.Logger = container.GetExportedValue<ILogger>();
-            ViewModel.AssemblyModel = container.GetExportedValue<BaseAssembly>();
         }
     }
 }

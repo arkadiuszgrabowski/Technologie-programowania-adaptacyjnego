@@ -1,10 +1,9 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using Library;
 using Library.TreeView;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace UnitTests
+namespace Tests.SerializationUnitTests
 {
     [TestClass]
     public class SerializationTests
@@ -14,7 +13,7 @@ namespace UnitTests
             GetPath = new TestPath(),
             Logger = new FileLogger.FileLogger("Logs.txt", "Tests"),
             Serializer = new XMLSerializer.XMLSerializer("test.xml"),
-            AssemblyModel = new XMLSerializer.Model.XmlAssembly()
+            InAssembly = new XMLSerializer.Model.XmlAssembly()
 
         };
         public class TestPath : IOpenDialogPath
@@ -41,13 +40,13 @@ namespace UnitTests
             viewModel.Serialize();
             Assert.IsTrue(File.Exists(viewModel.Serializer.GetPath()));
             viewModel.Deserialize();
-            Assert.AreEqual(viewModel.assemblyMetadata.m_Namespaces.Count, 2);
-            Assert.AreEqual(viewModel.assemblyMetadata.m_Namespaces[0].m_NamespaceName, "LibraryForTests");
-            Assert.AreEqual(viewModel.assemblyMetadata.m_Namespaces[1].m_NamespaceName, "LibraryForTests.Recursion");
-            Assert.AreEqual(viewModel.assemblyMetadata.m_Namespaces[0].m_Types[0].Fields[0].m_ParameterName, "name");
-            Assert.AreEqual(viewModel.assemblyMetadata.m_Namespaces[1].m_Types[0].Fields[0].m_ParameterName, "classB");
-            Assert.AreEqual(viewModel.assemblyMetadata.m_Namespaces[1].m_Types[1].Fields[0].m_ParameterName, "classC");
-            Assert.AreEqual(viewModel.assemblyMetadata.m_Namespaces[1].m_Types[2].Fields[0].m_ParameterName, "classA");
+            Assert.AreEqual(viewModel.assemblyMetadata.NamespaceModels.Count, 2);
+            Assert.AreEqual(viewModel.assemblyMetadata.NamespaceModels[0].Name, "Tests.LibraryForTests");
+            Assert.AreEqual(viewModel.assemblyMetadata.NamespaceModels[1].Name, "Tests.LibraryForTests.Recursion");
+            Assert.AreEqual(viewModel.assemblyMetadata.NamespaceModels[0].Types[0].Fields[0].Name, "name");
+            Assert.AreEqual(viewModel.assemblyMetadata.NamespaceModels[1].Types[0].Fields[0].Name, "classB");
+            Assert.AreEqual(viewModel.assemblyMetadata.NamespaceModels[1].Types[1].Fields[0].Name, "classC");
+            Assert.AreEqual(viewModel.assemblyMetadata.NamespaceModels[1].Types[2].Fields[0].Name, "classA");
         }
     }
 }

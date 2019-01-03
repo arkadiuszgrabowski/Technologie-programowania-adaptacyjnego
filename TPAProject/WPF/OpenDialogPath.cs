@@ -7,7 +7,7 @@ using System.Windows;
 using Library;
 using Microsoft.Win32;
 
-namespace WPF
+namespace Presentation.WPF
 {
     public class OpenDialogPath : IOpenDialogPath
     {

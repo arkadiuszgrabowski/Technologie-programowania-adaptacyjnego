@@ -1,16 +1,10 @@
 ﻿using System;
 using System.Windows;
 using Library.TreeView;
-using System.ComponentModel.Composition;
-using System.ComponentModel.Composition.Hosting;
-using Contracts;
 using System.Collections.Specialized;
-using System.IO;
-using System.Collections.Generic;
 using System.Configuration;
-using Data;
 
-namespace WPF
+namespace Presentation.WPF
 {
     /// <summary>
     /// Logika interakcji dla klasy MainWindow.xaml
@@ -24,29 +18,13 @@ namespace WPF
             {
                 GetPath = new OpenDialogPath()
             };
-            Compose();
+            NameValueCollection plugins = (NameValueCollection)ConfigurationManager.GetSection("plugins");
+            string[] pluginsCatalogs = plugins.AllKeys;
+            ((TreeViewModel)DataContext).Compose(pluginsCatalogs);
         }
         public MainWindow()
         {
             InitializeComponent();
-        }
-
-        private void Compose()
-        {
-            NameValueCollection plugins = (NameValueCollection)ConfigurationManager.GetSection("plugins");
-            string[] pluginsCatalogs = plugins.AllKeys;
-            List<DirectoryCatalog> directoryCatalogs = new List<DirectoryCatalog>();
-            foreach (string pluginsCatalog in pluginsCatalogs)
-            {
-                if (Directory.Exists(pluginsCatalog))
-                    directoryCatalogs.Add(new DirectoryCatalog(pluginsCatalog));
-            }
-
-            AggregateCatalog catalog = new AggregateCatalog(directoryCatalogs);
-            CompositionContainer container = new CompositionContainer(catalog);
-            ((TreeViewModel)DataContext).Serializer = container.GetExportedValue<ISerializer>();
-            ((TreeViewModel)DataContext).Logger = container.GetExportedValue<ILogger>();
-            ((TreeViewModel)DataContext).AssemblyModel = container.GetExportedValue<BaseAssembly>();
         }
     }
 }

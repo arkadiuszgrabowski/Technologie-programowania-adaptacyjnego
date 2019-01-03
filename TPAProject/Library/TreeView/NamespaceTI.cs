@@ -15,9 +15,9 @@ namespace Library.TreeView
 
         public List<TypeMetadata> TypeList { get; set; }
 
-        public NamespaceTI(NamespaceMetadata namespaceMetadata) : base(namespaceMetadata.m_NamespaceName, ItemTypeEnum.Namespace)
+        public NamespaceTI(NamespaceMetadata namespaceMetadata) : base(namespaceMetadata.Name, ItemTypeEnum.Namespace)
         {
-            TypeList = namespaceMetadata.m_Types;
+            TypeList = namespaceMetadata.Types;
         }
 
         protected override void BuildMyself(ObservableCollection<TreeViewItem> children)
@@ -31,7 +31,7 @@ namespace Library.TreeView
                             ItemTypeEnum.Enum : typeMetadata.Type == TypeEnum.Interface ?
                                 ItemTypeEnum.Interface : ItemTypeEnum.Struct;
 
-                    children.Add(new TypeTI(TypeSingleton.Instance.Get(typeMetadata.TypeName), typeEnum));
+                    children.Add(new TypeTI(TypeSingleton.Instance.Get(typeMetadata.Name), typeEnum));
                 }
             }
         }

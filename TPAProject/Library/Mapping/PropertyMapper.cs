@@ -14,7 +14,7 @@ namespace Library.Mappers
         public PropertyMetadata MapUp(BaseProperty model)
         {
             PropertyMetadata propertyModel = new PropertyMetadata();
-            propertyModel.m_PropertyName = model.Name;
+            propertyModel.Name = model.Name;
             Type type = model.GetType();
             PropertyInfo typeProperty = type.GetProperty("Type",
                 BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
@@ -32,7 +32,7 @@ namespace Library.Mappers
             PropertyInfo nameProperty = propertyModelType.GetProperty("Name");
             PropertyInfo typeProperty = propertyModelType.GetProperty("Type",
                 BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
-            nameProperty?.SetValue(propertyModel, model.m_PropertyName);
+            nameProperty?.SetValue(propertyModel, model.Name);
 
             if (model.Type != null)
                 typeProperty?.SetValue(propertyModel,

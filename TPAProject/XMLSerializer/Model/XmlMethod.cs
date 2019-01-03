@@ -8,19 +8,18 @@ using System.Threading.Tasks;
 
 namespace XMLSerializer.Model
 {
-    [DataContract(IsReference = true)]
     public class XmlMethod : BaseMethod
     {
-        [DataMember] public override string Name { get; set; }
+        public override string Name { get; set; }
 
-        [DataMember] public new List<XmlType> GenericArguments { get; set; }
+        public new List<XmlType> GenericArguments { get; set; }
 
-        [DataMember] public new XmlType ReturnType { get; set; }
+        public new XmlType ReturnType { get; set; }
 
-        [DataMember] public override bool Extension { get; set; }
+        public override bool Extension { get; set; }
 
-        [DataMember] public new List<XmlParameter> Parameters { get; set; }
+        public new List<XmlParameter> Parameters { get; set; }
 
-        [DataMember] public override MethodModifiers Modifiers { get; set; }
+        public override MethodModifiers Modifiers { get; set; }
     }
 }
