@@ -20,7 +20,9 @@ namespace Presentation.Console
         public static ConsoleTreeView ConsoleView { get; set; }
         static void Main(string[] args)
         {
-            Compose(ViewModel);
+            NameValueCollection plugins = (NameValueCollection)ConfigurationManager.GetSection("plugins");
+            string[] pluginsCatalogs = plugins.AllKeys;
+            ViewModel.Compose(pluginsCatalogs);
             ChoseMenu(String.Empty);
         }
     
@@ -76,7 +78,7 @@ namespace Presentation.Console
                         {
                             ViewModel.HierarchicalAreas = new ObservableCollection<TreeViewItem>();
                             ViewModel.Click_Deserialize.Execute(null);
-                            ViewModel.PathVariable = ViewModel.GetPath.GetPath();
+                            ViewModel.PathVariable = "Deserialized";
                             ConsoleView = new ConsoleTreeView(new ObservableCollection<ConsoleTreeViewItem>(ViewModel.HierarchicalAreas.Select(n => new ConsoleTreeViewItem(n, 0))));
                             TreeViewView(String.Empty);
                             break;
@@ -157,22 +159,6 @@ namespace Presentation.Console
             System.Console.Write(value[2]);
             System.Console.ResetColor();
             System.Console.WriteLine(value[3]);
-        }
-
-        private static void Compose(object obj)
-        {
-            NameValueCollection plugins = (NameValueCollection)ConfigurationManager.GetSection("plugins");
-            string[] pluginsCatalogs = plugins.AllKeys;
-            List<DirectoryCatalog> directoryCatalogs = new List<DirectoryCatalog>();
-            foreach (string pluginsCatalog in pluginsCatalogs)
-            {
-                if (Directory.Exists(pluginsCatalog))
-                    directoryCatalogs.Add(new DirectoryCatalog(pluginsCatalog));
-            }
-
-            AggregateCatalog catalog = new AggregateCatalog(directoryCatalogs);
-            CompositionContainer container = new CompositionContainer(catalog);
-            container.ComposeParts(obj);
         }
     }
 }

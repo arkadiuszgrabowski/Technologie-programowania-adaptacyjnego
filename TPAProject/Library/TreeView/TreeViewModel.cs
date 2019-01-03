@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
+using System.ComponentModel.Composition.Hosting;
+using System.IO;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
@@ -11,7 +14,6 @@ using Library.Mappers;
 using Library.MVVM;
 using Library.Reflection;
 using Library.Singleton;
-using XMLSerializer.Model;
 
 namespace Library.TreeView
 {
@@ -40,9 +42,9 @@ namespace Library.TreeView
         public ILogger Logger { get; set; }
         [Import(typeof(ISerializer))]
         public ISerializer Serializer { get; set; }
-        //tego nie może być Serializacja aktualnie nie działa
         [Import(typeof(BaseAssembly))]
         public BaseAssembly InAssembly { get; set; }
+        public object ConfigurationManager { get; private set; }
 
         private void LoadDLL()
         {
@@ -148,6 +150,20 @@ namespace Library.TreeView
         {
             return Serializer.IsDeserializationPossible();
         }
-        
+
+        public void Compose(string[] pluginsCatalogs)
+        {
+            List<DirectoryCatalog> directoryCatalogs = new List<DirectoryCatalog>();
+            foreach (string pluginsCatalog in pluginsCatalogs)
+            {
+                if (Directory.Exists(pluginsCatalog))
+                    directoryCatalogs.Add(new DirectoryCatalog(pluginsCatalog));
+            }
+
+            AggregateCatalog catalog = new AggregateCatalog(directoryCatalogs);
+            CompositionContainer container = new CompositionContainer(catalog);
+            container.ComposeParts(this);
+        }
+
     }
 }
