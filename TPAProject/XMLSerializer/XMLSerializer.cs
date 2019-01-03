@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Runtime.Serialization;
-using System.IO;
+﻿using System.IO;
 using Contracts;
 using System.ComponentModel.Composition;
 using Data;
 using XMLSerializer.Model;
-using System.Xml.Serialization;
-using System.Diagnostics;
+using Newtonsoft.Json;
+using System.Xml.Linq;
+using System.Xml;
 
 namespace XMLSerializer
 {
@@ -28,22 +23,30 @@ namespace XMLSerializer
         public void Serialize(BaseAssembly _object)
         {
             XmlAssembly assembly = _object as XmlAssembly;
-            Debug.WriteLine(assembly.Name);
-            DataContractSerializer dataContractSerializer = new DataContractSerializer(typeof(XmlAssembly));
-
-            using (FileStream fileStream = new FileStream(path, FileMode.Create))
+            string name = JsonConvert.SerializeObject(assembly, Newtonsoft.Json.Formatting.Indented, new JsonSerializerSettings
             {
-                dataContractSerializer.WriteObject(fileStream, assembly);
+                PreserveReferencesHandling = PreserveReferencesHandling.Objects
+            });
+            XNode node = JsonConvert.DeserializeXNode(name, "Root");
+            using (StreamWriter file = new StreamWriter(path, false))
+            {
+                file.Write(node);
             }
         }
 
         public BaseAssembly Deserialize()
         {
             XmlAssembly model;
-            DataContractSerializer dataContractSerializer = new DataContractSerializer(typeof(XmlAssembly));
-            using (FileStream fileStream = new FileStream(path, FileMode.Open))
+            using (StreamReader file = new StreamReader(path, false))
             {
-                model = (XmlAssembly)dataContractSerializer.ReadObject(fileStream);
+                string reader = file.ReadToEnd();
+                XmlDocument doc = new XmlDocument();
+                doc.LoadXml(reader);
+                string json = JsonConvert.SerializeXmlNode(doc, Newtonsoft.Json.Formatting.Indented);
+                model = JsonConvert.DeserializeObject<XmlAssembly>(json, new JsonSerializerSettings
+                {
+                    PreserveReferencesHandling = PreserveReferencesHandling.Objects
+                });
             }
             return model;
         }
