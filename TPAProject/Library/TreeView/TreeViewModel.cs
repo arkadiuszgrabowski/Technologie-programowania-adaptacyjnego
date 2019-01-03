@@ -42,7 +42,7 @@ namespace Library.TreeView
         public ISerializer Serializer { get; set; }
         //tego nie może być Serializacja aktualnie nie działa
         [Import(typeof(BaseAssembly))]
-        public BaseAssembly Test { get; set; }
+        public BaseAssembly InAssembly { get; set; }
 
         private void LoadDLL()
         {
@@ -82,7 +82,7 @@ namespace Library.TreeView
             Logger.Log("Serialize started...", LevelEnum.Information);
             try
             {
-                Serializer.Serialize(AssemblyMapper.MapDown(assemblyMetadata, Test.GetType()));
+                Serializer.Serialize(AssemblyMapper.MapDown(assemblyMetadata, InAssembly.GetType()));
                 Logger.Log("Serialize completed", LevelEnum.Success);
             }
             catch (Exception e)

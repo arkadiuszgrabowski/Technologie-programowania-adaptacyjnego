@@ -13,7 +13,7 @@ namespace Tests.SerializationUnitTests
             GetPath = new TestPath(),
             Logger = new FileLogger.FileLogger("Logs.txt", "Tests"),
             Serializer = new XMLSerializer.XMLSerializer("test.xml"),
-            //AssemblyModel = new XMLSerializer.Model.XmlAssembly()
+            InAssembly = new XMLSerializer.Model.XmlAssembly()
 
         };
         public class TestPath : IOpenDialogPath
