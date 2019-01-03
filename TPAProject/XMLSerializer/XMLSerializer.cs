@@ -25,7 +25,7 @@ namespace XMLSerializer
         public XMLSerializer()
         {
         }
-        public void Serialize<T>(T _object)
+        public void Serialize(BaseAssembly _object)
         {
             XmlAssembly assembly = _object as XmlAssembly;
             Debug.WriteLine(assembly.Name);
@@ -36,8 +36,8 @@ namespace XMLSerializer
                 dataContractSerializer.WriteObject(fileStream, assembly);
             }
         }
-        // Deserializacja prawdopodobnie zwraca zły typ
-        public T Deserialize<T>()
+
+        public BaseAssembly Deserialize()
         {
             XmlAssembly model;
             DataContractSerializer dataContractSerializer = new DataContractSerializer(typeof(XmlAssembly));
@@ -45,7 +45,7 @@ namespace XMLSerializer
             {
                 model = (XmlAssembly)dataContractSerializer.ReadObject(fileStream);
             }
-            return (T) Convert.ChangeType(model, typeof(T));
+            return model;
         }
 
         public string GetPath()

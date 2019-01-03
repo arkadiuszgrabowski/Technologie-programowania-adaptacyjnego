@@ -1,9 +1,11 @@
-﻿namespace Contracts
+﻿using Data;
+
+namespace Contracts
 {
     public interface ISerializer
     {
-        void Serialize<T>(T _object);
-        T Deserialize<T>();
+        void Serialize(BaseAssembly _object);
+        BaseAssembly Deserialize();
         string GetPath();
         bool IsDeserializationPossible();
     }
