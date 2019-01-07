@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DatabaseContext.cs" />
     <Compile Include="Model\DatabaseAssembly.cs" />
     <Compile Include="Model\DatabaseMethod.cs" />
     <Compile Include="Model\DatabaseNamespace.cs" />
