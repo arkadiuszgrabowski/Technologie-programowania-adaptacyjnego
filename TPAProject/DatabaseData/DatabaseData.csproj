@@ -38,6 +38,7 @@
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -50,6 +51,7 @@
   <ItemGroup>
     <Compile Include="DatabaseContext.cs" />
     <Compile Include="Model\DatabaseAssembly.cs" />
+    <Compile Include="Model\DatabaseLogs.cs" />
     <Compile Include="Model\DatabaseMethod.cs" />
     <Compile Include="Model\DatabaseNamespace.cs" />
     <Compile Include="Model\DatabaseParameter.cs" />

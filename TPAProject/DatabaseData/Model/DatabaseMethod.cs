@@ -13,8 +13,6 @@ namespace DatabaseData.Model
         {
             GenericArguments = new List<DatabaseType>();
             Parameters = new List<DatabaseParameter>();
-            //TypeConstructors = new List<DatabaseType>();
-            //TypeMethods = new List<DatabaseType>();
         }
 
         public int Id { get; set; }

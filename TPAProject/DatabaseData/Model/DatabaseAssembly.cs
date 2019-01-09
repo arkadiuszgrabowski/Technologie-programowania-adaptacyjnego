@@ -1,12 +1,10 @@
 ﻿using Data;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel.Composition;
 
 namespace DatabaseData.Model
 {
+    [Export(typeof(BaseAssembly))]
     public class DatabaseAssembly : BaseAssembly
     {
         public int Id { get; set; }
