@@ -7,14 +7,14 @@ namespace DatabaseLogger
     [Export(typeof(ILogger))]
     public class Logger : ILogger
     {
-        public void Log(string message, LevelEnum level)
+        public void Log(string message, LevelEnum level, DateTime time)
         {
             using (LoggerContext context = new LoggerContext())
             {
                 context.Logs.Add(new DatabaseLogs
                 {
                     Message = message,
-                    Time = DateTime.Now,
+                    Time = time,
                     Level = level.ToString()
                 });
                 context.SaveChanges();

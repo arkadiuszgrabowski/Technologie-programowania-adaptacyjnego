@@ -101,7 +101,7 @@ namespace Library.TreeView
 
         private void LogTask(String message, LevelEnum level)
         {
-            Task task = new Task(() => Logger.Log(message, level));
+            Task task = new Task(() => Logger.Log(message, level, DateTime.Now));
             task.Start();
         }
 
