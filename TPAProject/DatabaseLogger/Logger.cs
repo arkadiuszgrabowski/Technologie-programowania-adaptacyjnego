@@ -17,6 +17,7 @@ namespace DatabaseLogger
                     Time = DateTime.Now,
                     Level = level.ToString()
                 });
+                context.SaveChanges();
             }
         }
     }
