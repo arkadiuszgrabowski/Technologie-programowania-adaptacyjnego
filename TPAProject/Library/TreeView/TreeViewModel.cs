@@ -50,22 +50,22 @@ namespace Library.TreeView
         {
             if (PathVariable != null && PathVariable.Substring(PathVariable.Length - 4) == ".dll")
             {
-                Logger.Log("Path loaded", LevelEnum.Success);
+                LogTask("Path loaded", LevelEnum.Success);
                 try
                 {
-                    Logger.Log("Starting reflection...", LevelEnum.Information);
+                    LogTask("Starting reflection...", LevelEnum.Information);
                     assemblyMetadata = new AssemblyMetadata(Assembly.LoadFrom(PathVariable));
                     assemblyTi = new AssemblyTI(assemblyMetadata);
-                    Logger.Log("Reflection success!", LevelEnum.Success);
+                    LogTask("Reflection success!", LevelEnum.Success);
                 }
                 catch (Exception e)
                 {
-                    Logger.Log("Reflection failed with exception: " + e.Message, LevelEnum.Error);
+                    LogTask("Reflection failed with exception: " + e.Message, LevelEnum.Error);
                 }
                 TreeViewLoaded();
             } else
             {
-                Logger.Log("Path incorrect!", LevelEnum.Warning);
+                LogTask("Path incorrect!", LevelEnum.Warning);
             }
         }
         private void TreeViewLoaded()
@@ -76,20 +76,20 @@ namespace Library.TreeView
         private void Browse()
         {
             PathVariable = GetPath.GetPath();
-            Logger.Log("Loading path...", LevelEnum.Information);
+            LogTask("Loading path...", LevelEnum.Information);
             RaisePropertyChanged("PathVariable");
         }
         public void Serialize()
         {
-            Logger.Log("Serialize started...", LevelEnum.Information);
+            LogTask("Serialize started...", LevelEnum.Information);
             try
             {
                 Serializer.Serialize(AssemblyMapper.MapDown(assemblyMetadata, InAssembly.GetType()));
-                Logger.Log("Serialize completed", LevelEnum.Success);
+                LogTask("Serialize completed", LevelEnum.Success);
             }
             catch (Exception e)
             {
-                Logger.Log("Serialization failed with exception: " + e.Message, LevelEnum.Error);
+                LogTask("Serialization failed with exception: " + e.Message, LevelEnum.Error);
             }
             
         }
@@ -98,9 +98,16 @@ namespace Library.TreeView
             Task task = new Task(() => Serialize());
             task.Start();
         }
+
+        private void LogTask(String message, LevelEnum level)
+        {
+            Task task = new Task(() => Logger.Log(message, level));
+            task.Start();
+        }
+
         public void Deserialize()
         {
-            Logger.Log("Deserialize started...", LevelEnum.Information);
+            LogTask("Deserialize started...", LevelEnum.Information);
             try
             {
                 assemblyMetadata = AssemblyMapper.MapUp(Serializer.Deserialize());
@@ -115,11 +122,11 @@ namespace Library.TreeView
                     }
                 }
                 assemblyTi = new AssemblyTI(assemblyMetadata);
-                Logger.Log("Reflection success!", LevelEnum.Success);
+                LogTask("Deserialization success!", LevelEnum.Success);
             }
             catch (Exception e)
             {
-                Logger.Log("Deserialization failed with exception: " + e.Message, LevelEnum.Error);
+                LogTask("Deserialization failed with exception: " + e.Message, LevelEnum.Error);
             }
             if(uiContext != null)
             {
