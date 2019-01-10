@@ -63,10 +63,6 @@
       <Project>{76265163-5445-4C56-B650-8A9EBD325376}</Project>
       <Name>Contracts</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DatabaseData\DatabaseData.csproj">
-      <Project>{23BDF3C4-D4D6-4021-B831-A982F440A581}</Project>
-      <Name>DatabaseData</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

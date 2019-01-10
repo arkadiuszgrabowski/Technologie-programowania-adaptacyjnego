@@ -5,7 +5,7 @@ namespace DatabaseData
 {
     public class DatabaseContext : DbContext
     {
-        public DatabaseContext() : base("name=TPAProjectDB") {
+        public DatabaseContext() : base("TPAProjectDB") {
             Database.SetInitializer(new DropCreateDatabaseAlways<DatabaseContext>());
         }
         public DbSet<DatabaseAssembly> AssemblyModel { get; set; }
