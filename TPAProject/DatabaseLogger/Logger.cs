@@ -1,6 +1,5 @@
 ﻿using Contracts;
 using DatabaseData;
-using DatabaseData.Model;
 using System;
 using System.ComponentModel.Composition;
 
@@ -11,7 +10,7 @@ namespace DatabaseLogger
     {
         public void Log(string message, LevelEnum level)
         {
-            using (DatabaseContext context = new DatabaseContext())
+            using (LoggerContext context = new LoggerContext())
             {
                 context.Logs.Add(new DatabaseLogs
                 {

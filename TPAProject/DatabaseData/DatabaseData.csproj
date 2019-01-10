@@ -51,7 +51,6 @@
   <ItemGroup>
     <Compile Include="DatabaseContext.cs" />
     <Compile Include="Model\DatabaseAssembly.cs" />
-    <Compile Include="Model\DatabaseLogs.cs" />
     <Compile Include="Model\DatabaseMethod.cs" />
     <Compile Include="Model\DatabaseNamespace.cs" />
     <Compile Include="Model\DatabaseParameter.cs" />
