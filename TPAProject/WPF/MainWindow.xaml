@@ -7,6 +7,7 @@
         xmlns:lib="clr-namespace:Library.TreeView;assembly=Library"
         xmlns:converter="clr-namespace:Presentation.WPF"
         mc:Ignorable="d"
+        ResizeMode="NoResize"
         Title="MainWindow" Height="450" Width="800">
     <Window.DataContext>
         <lib:TreeViewModel/>

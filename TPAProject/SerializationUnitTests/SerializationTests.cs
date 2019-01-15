@@ -20,7 +20,7 @@ namespace Tests.SerializationUnitTests
         {
             public string GetPath()
             {
-                return @"..\..\..\LibraryForTests\bin\Debug\LibraryForTests.dll";
+                return @"..\..\..\LibraryForTests\TPA.ApplicationArchitecture.dll";
             }
         }
         [TestMethod]
@@ -40,13 +40,16 @@ namespace Tests.SerializationUnitTests
             viewModel.Serialize();
             Assert.IsTrue(File.Exists(viewModel.Serializer.GetPath()));
             viewModel.Deserialize();
-            Assert.AreEqual(viewModel.assemblyMetadata.NamespaceModels.Count, 2);
-            Assert.AreEqual(viewModel.assemblyMetadata.NamespaceModels[0].Name, "Tests.LibraryForTests");
-            Assert.AreEqual(viewModel.assemblyMetadata.NamespaceModels[1].Name, "Tests.LibraryForTests.Recursion");
-            Assert.AreEqual(viewModel.assemblyMetadata.NamespaceModels[0].Types[0].Fields[0].Name, "name");
-            Assert.AreEqual(viewModel.assemblyMetadata.NamespaceModels[1].Types[0].Fields[0].Name, "classB");
-            Assert.AreEqual(viewModel.assemblyMetadata.NamespaceModels[1].Types[1].Fields[0].Name, "classC");
-            Assert.AreEqual(viewModel.assemblyMetadata.NamespaceModels[1].Types[2].Fields[0].Name, "classA");
+            Assert.AreEqual(viewModel.assemblyMetadata.NamespaceModels.Count, 4);
+            Assert.AreEqual(viewModel.assemblyMetadata.NamespaceModels[0].Name, "TPA.ApplicationArchitecture.BusinessLogic");
+            Assert.AreEqual(viewModel.assemblyMetadata.NamespaceModels[1].Name, "TPA.ApplicationArchitecture.Data");
+            Assert.AreEqual(viewModel.assemblyMetadata.NamespaceModels[2].Name, "TPA.ApplicationArchitecture.Data.CircularReference");
+            Assert.AreEqual(viewModel.assemblyMetadata.NamespaceModels[3].Name, "TPA.ApplicationArchitecture.Presentation");
+            Assert.AreEqual(viewModel.assemblyMetadata.NamespaceModels[0].Types[0].Name, "Model");
+            Assert.AreEqual(viewModel.assemblyMetadata.NamespaceModels[1].Types[1].Name, "ClassWithAttribute");
+            Assert.AreEqual(viewModel.assemblyMetadata.NamespaceModels[1].Types[2].Name, "DerivedClass");
+            Assert.AreEqual(viewModel.assemblyMetadata.NamespaceModels[2].Types[0].Name, "ClassA");
+            Assert.AreEqual(viewModel.assemblyMetadata.NamespaceModels[3].Types[0].Name, "View");
         }
     }
 }
