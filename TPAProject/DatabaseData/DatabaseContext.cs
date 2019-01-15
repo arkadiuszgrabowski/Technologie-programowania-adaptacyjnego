@@ -5,8 +5,8 @@ namespace DatabaseData
 {
     public class DatabaseContext : DbContext
     {
-        public DatabaseContext() : base("TPAProjectDB") {
-            Database.SetInitializer(new DropCreateDatabaseAlways<DatabaseContext>());
+        public DatabaseContext() : base("TPAProjectSerializationDB") {
+            //Database.SetInitializer(new DropCreateDatabaseAlways<DatabaseContext>());
         }
         public DbSet<DatabaseAssembly> AssemblyModel { get; set; }
         public DbSet<DatabaseMethod> MethodModel { get; set; }
