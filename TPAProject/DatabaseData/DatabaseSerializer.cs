@@ -25,7 +25,7 @@ namespace DatabaseData
 
         public void Serialize(BaseAssembly _object)
         {
-            //Clear();
+            Clear();
             using (DatabaseContext context = new DatabaseContext())
             {
                 DatabaseAssembly assemblyModel = (DatabaseAssembly)_object;

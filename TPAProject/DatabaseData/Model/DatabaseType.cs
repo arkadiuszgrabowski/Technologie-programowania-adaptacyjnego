@@ -45,7 +45,7 @@ namespace DatabaseData.Model
         public new List<DatabaseProperty> Properties { get; set; }
 
 
-        [InverseProperty("BaseType")]
+        [InverseProperty("BaseT")]
         public virtual ICollection<DatabaseType> TypeBaseTypes { get; set; }
 
         [InverseProperty("DeclaringType")]
