@@ -2,11 +2,8 @@
 
 namespace DatabaseLogger
 {
-    public class LoggerContext : DbContext
+    public class TPALoggerContext : DbContext
     {
-        public LoggerContext() : base("TPAProjectLoggerDB")
-        {
-        }
         public DbSet<DatabaseLogs> Logs { get; set; }
     }
 }

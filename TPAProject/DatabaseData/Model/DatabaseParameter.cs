@@ -1,6 +1,7 @@
 ﻿using Data;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -8,16 +9,22 @@ using System.Threading.Tasks;
 
 namespace DatabaseData.Model
 {
-    [Table("Parameter")]
+    [Table("ParameterModel")]
     public class DatabaseParameter : BaseParameter
     {
         public DatabaseParameter()
         {
-
+            MethodParameters = new HashSet<DatabaseMethod>();
+            TypeFields = new HashSet<DatabaseMethod>();
         }
         public int Id { get; set; }
+        [Required]
+        [StringLength(150)]
         public override string Name { get; set; }
         public new DatabaseType Type { get; set; }
 
+        public virtual ICollection<DatabaseMethod> MethodParameters { get; set; }
+
+        public virtual ICollection<DatabaseMethod> TypeFields { get; set; }
     }
 }

@@ -9,14 +9,24 @@ using System.Threading.Tasks;
 
 namespace DatabaseData.Model
 {
-    [Table("Type")]
+    [Table("TypeModel")]
     public class DatabaseType : BaseType
     {
         public DatabaseType()
         {
-            //MethodGenericArguments = new List<DatabaseMethod>();
+            MethodGenericArguments = new HashSet<DatabaseMethod>();
+            TypeGenericArguments = new HashSet<DatabaseType>();
+            TypeImplementedInterfaces = new HashSet<DatabaseType>();
+            TypeNestedTypes = new HashSet<DatabaseType>();
+            Constructors = new List<DatabaseMethod>();
+            Fields = new List<DatabaseParameter>();
+            GenericArguments = new List<DatabaseType>();
+            ImplementedInterfaces = new List<DatabaseType>();
+            Methods = new List<DatabaseMethod>();
+            NestedTypes = new List<DatabaseType>();
+            Properties = new List<DatabaseProperty>();
         }
-        [Key]
+        [Key, StringLength(150)]
         public override string Name { get; set; }
         public override string AssemblyName { get; set; }
         public override bool IsExternal { get; set; }
@@ -35,6 +45,19 @@ namespace DatabaseData.Model
         public new List<DatabaseProperty> Properties { get; set; }
 
 
+        [InverseProperty("BaseType")]
+        public virtual ICollection<DatabaseType> TypeBaseTypes { get; set; }
+
+        [InverseProperty("DeclaringType")]
+        public virtual ICollection<DatabaseType> TypeDeclaringTypes { get; set; }
+
+        public virtual ICollection<DatabaseMethod> MethodGenericArguments { get; set; }
+
+        public virtual ICollection<DatabaseType> TypeGenericArguments { get; set; }
+
+        public virtual ICollection<DatabaseType> TypeImplementedInterfaces { get; set; }
+
+        public virtual ICollection<DatabaseType> TypeNestedTypes { get; set; }
 
     }
 }

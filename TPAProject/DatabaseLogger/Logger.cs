@@ -9,7 +9,7 @@ namespace DatabaseLogger
     {
         public void Log(string message, LevelEnum level, DateTime time)
         {
-            using (LoggerContext context = new LoggerContext())
+            using (TPALoggerContext context = new TPALoggerContext())
             {
                 context.Logs.Add(new DatabaseLogs
                 {
