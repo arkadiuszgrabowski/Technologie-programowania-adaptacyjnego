@@ -18,7 +18,7 @@ namespace Tests.MVVMUnitTests
         {
             public string GetPath()
             {
-                return @"..\..\..\LibraryForTests\bin\Debug\LibraryForTests.dll";
+                return @"..\..\..\LibraryForTests\TPA.ApplicationArchitecture.dll";
             }
         }
         [TestMethod]
@@ -36,7 +36,7 @@ namespace Tests.MVVMUnitTests
         {
             viewModel.Click_Browse.Execute(null);
             viewModel.Click_Open.Execute(null);
-            Assert.AreEqual(viewModel.GetPath.GetPath(), @"..\..\..\LibraryForTests\bin\Debug\LibraryForTests.dll");
+            Assert.AreEqual(viewModel.GetPath.GetPath(), @"..\..\..\LibraryForTests\TPA.ApplicationArchitecture.dll");
             Assert.IsNotNull(viewModel.PathVariable);
         }
         [TestMethod]
