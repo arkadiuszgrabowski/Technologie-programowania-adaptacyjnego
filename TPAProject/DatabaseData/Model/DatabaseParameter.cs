@@ -15,7 +15,7 @@ namespace DatabaseData.Model
         public DatabaseParameter()
         {
             MethodParameters = new HashSet<DatabaseMethod>();
-            TypeFields = new HashSet<DatabaseMethod>();
+            TypeFields = new HashSet<DatabaseType>();
         }
         public int Id { get; set; }
         [Required]
@@ -25,6 +25,6 @@ namespace DatabaseData.Model
 
         public virtual ICollection<DatabaseMethod> MethodParameters { get; set; }
 
-        public virtual ICollection<DatabaseMethod> TypeFields { get; set; }
+        public virtual ICollection<DatabaseType> TypeFields { get; set; }
     }
 }
