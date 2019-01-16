@@ -3,7 +3,7 @@ using System.Data.Entity;
 
 namespace DatabaseData
 {
-    public class TPADatabaseContext17 : DbContext
+    public class TPADatabaseContext : DbContext
     {
         //public DatabaseContext() : base("TPAProjectSerializationDB") {
         //    //Database.SetInitializer(new DropCreateDatabaseAlways<DatabaseContext>());
