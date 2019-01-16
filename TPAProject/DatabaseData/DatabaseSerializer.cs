@@ -13,7 +13,7 @@ namespace DatabaseData
     {
         public BaseAssembly Deserialize()
         {
-            using (TPADatabaseContext17 context = new TPADatabaseContext17())
+            using (TPADatabaseContext context = new TPADatabaseContext())
             {
                 context.Configuration.ProxyCreationEnabled = false;
                 context.NamespaceModel
@@ -65,7 +65,7 @@ namespace DatabaseData
 
         public string GetPath()
         {
-            using (TPADatabaseContext17 context = new TPADatabaseContext17())
+            using (TPADatabaseContext context = new TPADatabaseContext())
             {
                 return context.Database.Connection.Database;
             }
@@ -73,7 +73,7 @@ namespace DatabaseData
 
         public bool IsDeserializationPossible()
         {
-            using (TPADatabaseContext17 context = new TPADatabaseContext17())
+            using (TPADatabaseContext context = new TPADatabaseContext())
             {
                 return context.Database.Exists();
             }
@@ -82,7 +82,7 @@ namespace DatabaseData
         public void Serialize(BaseAssembly _object)
         {
             Clear();
-            using (TPADatabaseContext17 context = new TPADatabaseContext17())
+            using (TPADatabaseContext context = new TPADatabaseContext())
             {
                 DatabaseAssembly assemblyModel = (DatabaseAssembly)_object;
                 context.AssemblyModel.Add(assemblyModel);
@@ -91,7 +91,7 @@ namespace DatabaseData
         }
         private void Clear()
         {
-            using (TPADatabaseContext17 context = new TPADatabaseContext17())
+            using (TPADatabaseContext context = new TPADatabaseContext())
             {
                 context.Database.ExecuteSqlCommand("DELETE FROM ParameterModel WHERE ID != -1");
                 context.Database.ExecuteSqlCommand("DELETE FROM PropertyModel WHERE ID != -1");
