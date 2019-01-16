@@ -26,7 +26,7 @@ namespace DatabaseData.Model
             NestedTypes = new List<DatabaseType>();
             Properties = new List<DatabaseProperty>();
         }
-        [Key, StringLength(150)]
+        [Key]
         public override string Name { get; set; }
         public override string AssemblyName { get; set; }
         public override bool IsExternal { get; set; }
@@ -51,10 +51,12 @@ namespace DatabaseData.Model
         [InverseProperty("DeclaringType")]
         public virtual ICollection<DatabaseType> TypeDeclaringTypes { get; set; }
 
+        [InverseProperty("GenericArguments")]
         public virtual ICollection<DatabaseMethod> MethodGenericArguments { get; set; }
 
         public virtual ICollection<DatabaseType> TypeGenericArguments { get; set; }
 
+        [InverseProperty("ImplementedInterfaces")]
         public virtual ICollection<DatabaseType> TypeImplementedInterfaces { get; set; }
 
         public virtual ICollection<DatabaseType> TypeNestedTypes { get; set; }

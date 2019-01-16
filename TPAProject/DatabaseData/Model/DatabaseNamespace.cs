@@ -13,7 +13,6 @@ namespace DatabaseData.Model
     public class DatabaseNamespace : BaseNamespace
     {
         public int Id { get; set; }
-        [Required, StringLength(150)]
         public override string Name { get; set; }
         public new List<DatabaseType> Types { get; set; }
     }

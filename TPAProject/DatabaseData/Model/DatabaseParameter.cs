@@ -18,8 +18,6 @@ namespace DatabaseData.Model
             TypeFields = new HashSet<DatabaseType>();
         }
         public int Id { get; set; }
-        [Required]
-        [StringLength(150)]
         public override string Name { get; set; }
         public new DatabaseType Type { get; set; }
 

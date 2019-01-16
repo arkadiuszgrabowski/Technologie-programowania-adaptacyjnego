@@ -21,8 +21,6 @@ namespace DatabaseData.Model
         }
 
         public int Id { get; set; }
-        [Required]
-        [StringLength(150)]
         public override string Name { get; set; }
         public override bool Extension { get; set; }
         public override MethodModifiers Modifiers { get; set; }

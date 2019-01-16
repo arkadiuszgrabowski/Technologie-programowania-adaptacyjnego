@@ -12,8 +12,6 @@ namespace DatabaseData.Model
     {
         public int Id { get; set; }
 
-        [Required]
-        [StringLength(150)]
         public override string Name { get; set; }
         public new List<DatabaseNamespace> NamespaceModels { get; set; }
     }
