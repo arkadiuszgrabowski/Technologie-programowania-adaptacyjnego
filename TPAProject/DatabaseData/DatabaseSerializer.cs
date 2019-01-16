@@ -9,7 +9,7 @@ using System.Linq;
 namespace DatabaseData
 {
     [Export(typeof(ISerializer))]
-    class DatabaseSerializer : ISerializer
+    public class DatabaseSerializer : ISerializer
     {
         public BaseAssembly Deserialize()
         {

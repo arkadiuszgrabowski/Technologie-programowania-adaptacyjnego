@@ -40,6 +40,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseLogger", "DatabaseLogger\DatabaseLogger.csproj", "{4C9ACA02-1E9B-4E7A-AE96-D587A5A6285A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseUnitTests", "DatabaseUnitTests\DatabaseUnitTests.csproj", "{BD3C6BE6-4AC5-4EF4-AF3C-FEC1D53197BD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -94,6 +96,10 @@ Global
 		{4C9ACA02-1E9B-4E7A-AE96-D587A5A6285A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4C9ACA02-1E9B-4E7A-AE96-D587A5A6285A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4C9ACA02-1E9B-4E7A-AE96-D587A5A6285A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD3C6BE6-4AC5-4EF4-AF3C-FEC1D53197BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD3C6BE6-4AC5-4EF4-AF3C-FEC1D53197BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD3C6BE6-4AC5-4EF4-AF3C-FEC1D53197BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD3C6BE6-4AC5-4EF4-AF3C-FEC1D53197BD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -111,6 +117,7 @@ Global
 		{BAB2D7F0-040A-4150-82F1-E8201440B0BF} = {2D7F9185-C9CD-4BF3-9F02-FEFB587D8ED7}
 		{23BDF3C4-D4D6-4021-B831-A982F440A581} = {C9D892F6-EA15-435C-9BE4-E2C7EBC9577A}
 		{4C9ACA02-1E9B-4E7A-AE96-D587A5A6285A} = {C9D892F6-EA15-435C-9BE4-E2C7EBC9577A}
+		{BD3C6BE6-4AC5-4EF4-AF3C-FEC1D53197BD} = {2D7F9185-C9CD-4BF3-9F02-FEFB587D8ED7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BC9534D4-5E8C-4D46-9107-380166EF43B9}
