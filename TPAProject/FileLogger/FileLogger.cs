@@ -24,9 +24,9 @@ namespace FileLogger
             _traceListener = new TextWriterTraceListener("Logs.txt", "Tracing");
         }
 
-        public void Log(string message, LevelEnum level)
+        public void Log(string message, LevelEnum level, DateTime time)
         {
-            _traceListener.WriteLine(message + " (" + DateTime.Now + ")", level.ToString());
+            _traceListener.WriteLine(message + " (" + time + ")", level.ToString());
             _traceListener.Flush();
         }
     }

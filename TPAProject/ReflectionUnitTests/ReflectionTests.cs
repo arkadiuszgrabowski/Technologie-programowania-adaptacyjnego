@@ -17,7 +17,7 @@ namespace Tests.ReflectionUnitTests
         {
             public string GetPath()
             {
-                return @"..\..\..\LibraryForTests\bin\Debug\LibraryForTests.dll";
+                return @"..\..\..\LibraryForTests\TPA.ApplicationArchitecture.dll";
             }
         }
         [TestMethod]
@@ -25,9 +25,11 @@ namespace Tests.ReflectionUnitTests
         {
             viewModel.Click_Browse.Execute(null);
             viewModel.Click_Open.Execute(null);
-            Assert.AreEqual(viewModel.assemblyMetadata.NamespaceModels.Count, 2);
-            Assert.AreEqual(viewModel.assemblyMetadata.NamespaceModels[0].Name, "Tests.LibraryForTests");
-            Assert.AreEqual(viewModel.assemblyMetadata.NamespaceModels[1].Name, "Tests.LibraryForTests.Recursion");
+            Assert.AreEqual(viewModel.assemblyMetadata.NamespaceModels.Count, 4);
+            Assert.AreEqual(viewModel.assemblyMetadata.NamespaceModels[0].Name, "TPA.ApplicationArchitecture.BusinessLogic");
+            Assert.AreEqual(viewModel.assemblyMetadata.NamespaceModels[1].Name, "TPA.ApplicationArchitecture.Data");
+            Assert.AreEqual(viewModel.assemblyMetadata.NamespaceModels[2].Name, "TPA.ApplicationArchitecture.Data.CircularReference");
+            Assert.AreEqual(viewModel.assemblyMetadata.NamespaceModels[3].Name, "TPA.ApplicationArchitecture.Presentation");
         }
         [TestMethod]
         public void CheckClassesTestMethod()
@@ -35,22 +37,33 @@ namespace Tests.ReflectionUnitTests
             viewModel.Click_Browse.Execute(null);
             viewModel.Click_Open.Execute(null);
             int numberOfClasses = viewModel.assemblyMetadata.NamespaceModels[0].Types.Count +
-                                  viewModel.assemblyMetadata.NamespaceModels[1].Types.Count;
-            Assert.AreEqual(numberOfClasses, 4);
-            Assert.AreEqual(viewModel.assemblyMetadata.NamespaceModels[0].Types[0].Name, "Class");
-            Assert.AreEqual(viewModel.assemblyMetadata.NamespaceModels[1].Types[0].Name, "ClassA");
-            Assert.AreEqual(viewModel.assemblyMetadata.NamespaceModels[1].Types[1].Name, "ClassB");
-            Assert.AreEqual(viewModel.assemblyMetadata.NamespaceModels[1].Types[2].Name, "ClassC");
+                                  viewModel.assemblyMetadata.NamespaceModels[1].Types.Count +
+                                  viewModel.assemblyMetadata.NamespaceModels[2].Types.Count +
+                                  viewModel.assemblyMetadata.NamespaceModels[3].Types.Count;
+            Assert.AreEqual(numberOfClasses, 20);
+            Assert.AreEqual(viewModel.assemblyMetadata.NamespaceModels[0].Types[0].Name, "Model");
+            Assert.AreEqual(viewModel.assemblyMetadata.NamespaceModels[1].Types[1].Name, "ClassWithAttribute");
+            Assert.AreEqual(viewModel.assemblyMetadata.NamespaceModels[1].Types[2].Name, "DerivedClass");
+            Assert.AreEqual(viewModel.assemblyMetadata.NamespaceModels[2].Types[0].Name, "ClassA");
+            Assert.AreEqual(viewModel.assemblyMetadata.NamespaceModels[3].Types[0].Name, "View");
         }
         [TestMethod]
         public void CheckFieldsTestMethod()
         {
             viewModel.Click_Browse.Execute(null);
             viewModel.Click_Open.Execute(null);
-            Assert.AreEqual(viewModel.assemblyMetadata.NamespaceModels[0].Types[0].Fields[0].Name, "name");
-            Assert.AreEqual(viewModel.assemblyMetadata.NamespaceModels[1].Types[0].Fields[0].Name, "classB");
-            Assert.AreEqual(viewModel.assemblyMetadata.NamespaceModels[1].Types[1].Fields[0].Name, "classC");
-            Assert.AreEqual(viewModel.assemblyMetadata.NamespaceModels[1].Types[2].Fields[0].Name, "classA");
+            Assert.AreEqual(viewModel.assemblyMetadata.NamespaceModels[0].Types[0].Fields[0].Name, "<Linq2SQL>k__BackingField");
+            Assert.AreEqual(viewModel.assemblyMetadata.NamespaceModels[3].Types[0].Fields[0].Name, "<ViewModel>k__BackingField");
+        }
+        [TestMethod]
+        public void CheckMethodsTestMethod()
+        {
+            viewModel.Click_Browse.Execute(null);
+            viewModel.Click_Open.Execute(null);
+            Assert.AreEqual(viewModel.assemblyMetadata.NamespaceModels[0].Types[0].Methods[0].Name, "get_Linq2SQL");
+            Assert.AreEqual(viewModel.assemblyMetadata.NamespaceModels[0].Types[0].Methods[1].Name, "set_Linq2SQL");
+            Assert.AreEqual(viewModel.assemblyMetadata.NamespaceModels[3].Types[0].Methods[0].Name, "get_ViewModel");
+            Assert.AreEqual(viewModel.assemblyMetadata.NamespaceModels[3].Types[0].Methods[1].Name, "set_ViewModel");
         }
     }
 }

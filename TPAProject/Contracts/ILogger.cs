@@ -8,6 +8,6 @@ namespace Contracts
 {
     public interface ILogger
     {
-        void Log(String message, LevelEnum level);
+        void Log(String message, LevelEnum level, DateTime time);
     }
 }
