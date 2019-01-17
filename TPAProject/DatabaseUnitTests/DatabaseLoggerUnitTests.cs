@@ -10,6 +10,7 @@ using Library;
 namespace DatabaseUnitTests
 {
     [TestClass]
+    [DeploymentItem("TPALoggerDB.mdf")]
     public class DatabaseLoggerUnitTests
     {
         public static TreeViewModel viewModel { get; set; } = new TreeViewModel()
@@ -23,7 +24,7 @@ namespace DatabaseUnitTests
         {
             public string GetPath()
             {
-                return @"..\..\..\DatabaseData\TPASerializationDB.mdf";
+                return @"..\..\..\LibraryForTests\TPA.ApplicationArchitecture.dll";
             }
         }
         [TestMethod]
